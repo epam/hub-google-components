@@ -1,0 +1,58 @@
+---
+version: 1
+kind: component
+meta:
+  name: nginxing
+  title: Nginx
+  brief: Ingress controller
+  description: Ingress controller for Kubernetes using NGINX as a reverse proxy and load balancer
+  category: Edge Proxy
+  version: 0.41.2
+  maturity: ga
+  license: BSD
+  icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
+  source:
+      dir: components/nginxing
+
+requires:
+- kubernetes
+- helm
+
+provides:
+- nginxing
+
+parameters:
+- name: hub.componentName
+  env: COMPONENT_NAME  
+- name: dns.domain
+  env: DOMAIN_NAME
+- name: component.tls.kind
+  empty: allow
+  env: TLS_KIND
+- name: component.ingress
+  parameters:
+  - name: namespace
+    value: ingress
+    env: NAMESPACE
+- name: component.nginxing
+  parameters:
+  - name: replicaCount
+    value: 1
+  - name: kubernetes.ingressClass
+    value: nginx
+  - name: serviceType
+    value: LoadBalancer
+  - name: helm
+    parameters:
+    - name: chart
+      empty: allow
+      value: "ingress-nginx-3.12.0.tgz"
+      env: HELM_CHART
+
+outputs:
+- name: component.ingress.kubernetes.ingressClass
+  value: ${component.nginxing.kubernetes.ingressClass}
+
+templates:
+  files:
+  - '*.template'

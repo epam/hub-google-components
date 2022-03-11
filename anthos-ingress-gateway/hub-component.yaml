@@ -1,0 +1,38 @@
+---
+version: 1
+kind: component
+meta:
+  name: ingress-gateway
+  brief: Anthos Ingress Gateway
+  version: 1
+  source:
+      dir: ../anthos-ingress-gateway/
+
+requires:
+- kubernetes
+
+parameters:
+- name: projectId
+  env: PROJECT
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: component.anthosServiceMesh.revision
+  env: ISTIO_REVISION
+
+- name: component.anthosIngressGateway 
+  parameters:
+  - name: name
+    value: default-gateway
+    env: GATEWAY_NAME
+  - name: namespace
+    value: istio-ingress
+    env: INGRESS_NAMESPACE
+
+outputs:
+- name: component.anthosIngressGateway.ip
+  fromTfVar: ingress_gateway_ip
+
+templates:
+  files:
+  - "resources/*.template"

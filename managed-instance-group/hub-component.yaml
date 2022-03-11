@@ -1,0 +1,60 @@
+---
+version: 1
+kind: component
+meta:
+  name: managed-instance-group
+  brief: GCP Managed instance group
+  version: 1
+  source:
+      dir: ../managed-instance-group/
+
+requires:
+- terraform
+
+parameters:
+- name: projectId
+  env: TF_VAR_project
+- name: dns.domain
+  env: DOMAIN_NAME
+- name: cloud.region
+  env: TF_VAR_region
+
+- name: stateBucketName
+  env: STATE_BUCKET
+
+- name: component.managedInstanceGroup
+  parameters:
+  - name: name
+    value: default
+    env: TF_VAR_hostname_prefix
+  - name: service_account
+    env: TF_VAR_service_account
+    value: vo-m1
+  - name: disk_type
+    env: TF_VAR_disk_type
+    value: pd-standard
+  - name: machine_type
+    env: TF_VAR_machine_type
+    value: e2-medium
+  - name: imageProject
+    env: TF_VAR_image_project
+    value: superhub
+  - name: image
+    env: TF_VAR_image
+    value: superhub-toolbox
+  - name: port
+    env: TF_VAR_port
+    value: 80
+  - name: target_size
+    env: TF_VAR_target_size
+    value: 1
+  - name: subnetwork
+    env: TF_VAR_subnetwork
+    value: default
+  - name: natRouterName
+    env: TF_VAR_nat_router_name
+    empty: allow
+
+outputs:
+- name: component.managedInstanceGroup.instanceGroup
+  fromTfVar: instance_group

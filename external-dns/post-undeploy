@@ -1,0 +1,8 @@
+#!/bin/sh -xe
+
+SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
+SA_NAME="$HUB_COMPONENT"-"$SA_SUFFIX"
+
+gcloud iam service-accounts delete "$SA_NAME"@"$PROJECT".iam.gserviceaccount.com \
+    --project="$PROJECT" --quiet
+

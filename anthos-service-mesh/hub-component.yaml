@@ -1,0 +1,40 @@
+---
+version: 1
+kind: component
+meta:
+  name: anthos-service-mesh
+  brief: Anthos Service Mesh
+  version: 1
+  source:
+      dir: ../anthos-service-mesh/
+
+requires:
+- kubernetes
+
+parameters:
+- name: projectId
+  env: PROJECT
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: component.anthosServiceMesh
+  parameters:
+  - name: clusterName
+    env: CLUSTER
+  - name: zone
+    empty: allow
+    env: ZONE
+  - name: region
+    empty: allow
+    env: REGION
+  - name: version
+    value: 1.11
+    env: VERSION
+
+outputs:
+- name: component.anthosServiceMesh.revision
+  fromTfVar: asm_rev
+- name: component.anthosServiceMesh.url
+  fromTfVar: anthos_url
+
+

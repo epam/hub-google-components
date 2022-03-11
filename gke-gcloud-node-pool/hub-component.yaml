@@ -1,0 +1,39 @@
+---
+version: 1
+kind: component
+meta:
+  name: gke-gcloud-node-pool
+  brief: Google Kubernetes Engine Node Pool
+  version: 1
+  source:
+      dir: ../gke-gcloud-node-pool/
+
+requires:
+- gcp
+
+parameters:
+- name: projectId
+  env: PROJECT
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: component.gkeNodePool
+  parameters:
+  - name: name
+    env: NAME
+  - name: clusterName
+    env: CLUSTER
+  - name: zone
+    empty: allow
+    env: ZONE
+  - name: region
+    empty: allow
+    env: REGION
+  - name: machineType
+  - name: nodeCount
+
+templates:
+  files:
+  - "*.template"
+
+

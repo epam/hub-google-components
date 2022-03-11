@@ -1,0 +1,38 @@
+---
+version: 1
+kind: component
+meta:
+  name: load-balancer
+  brief: GCP Load balancer
+  version: 1
+  source:
+      dir: ./
+
+requires:
+- terraform
+
+parameters:
+- name: projectId
+  env: TF_VAR_project
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: stateBucketName
+  env: STATE_BUCKET
+
+- name: component.loadBalancer
+  parameters:
+  - name: name
+    value: default
+    env: TF_VAR_name
+  - name: network
+    env: TF_VAR_network
+    value: default
+  - name: sslCertificate
+    env: TF_VAR_ssl_certificate
+  - name: instanceGroup
+    env: TF_VAR_instance_group
+
+outputs:
+- name: component.loadBalancer.externalIp
+  fromTfVar: external_ip

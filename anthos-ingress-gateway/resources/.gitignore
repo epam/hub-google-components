@@ -1,0 +1,4 @@
+deployment.yaml
+role.yaml
+service.yaml
+serviceaccount.yaml

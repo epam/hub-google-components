@@ -1,0 +1,37 @@
+---
+version: 1
+kind: component
+meta:
+  name: gke
+  brief: Google Kubernetes Engine
+  version: 1.17
+  source:
+      dir: ../gke-tf/
+
+requires:
+- gcp
+
+parameters:
+- name: projectId
+  env: TF_VAR_project
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: terraform.bucket.name
+  env: STATE_BUCKET
+
+- name: component.gke
+  parameters:
+  - name: name
+    env: TF_VAR_name
+  - name: location
+    env: TF_VAR_location
+  - name: machineType
+    env: TF_VAR_machine_type
+  - name: nodeCount
+    env: TF_VAR_node_count
+
+outputs:
+- name: dns.domain
+
+

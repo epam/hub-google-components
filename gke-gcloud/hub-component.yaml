@@ -1,0 +1,46 @@
+---
+version: 1
+kind: component
+meta:
+  name: gke
+  brief: Google Kubernetes Engine
+  version: 1
+  source:
+      dir: ../gke-gcloud/
+
+requires:
+- gcp
+
+parameters:
+- name: projectId
+  env: PROJECT
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: component.gke
+  parameters:
+  - name: name
+    value: superhub
+    env: NAME
+  - name: version
+  - name: zone
+    empty: allow
+    env: ZONE
+  - name: region
+    empty: allow
+    env: REGION
+  - name: machineType
+    value: e2-standard-4
+  - name: nodeCount
+    value: 1
+
+outputs:
+- name: dns.domain
+- name: component.gke.url
+  fromTfVar: gcp_url 
+
+templates:
+  files:
+  - "*.template"
+
+

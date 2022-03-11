@@ -1,0 +1,40 @@
+---
+version: 1
+kind: component
+meta:
+  name: online-boutique-app
+  brief: Online Boutique App
+  version: 1
+  source:
+      dir: ../online-boutique-app/
+
+requires:
+- kubernetes
+
+parameters:
+- name: projectId
+  env: PROJECT
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: component.onlineBoutiqueApp
+  parameters: 
+  - name: istioRevision
+    env: ISTIO_REVISION
+  - name: host
+  - name: ingressGateway
+  - name: loadgenerator
+    parameters:
+    - name: numberOfReplicas
+      value: 3
+    - name: numberOfUsers
+      value: 100
+
+
+templates:
+  files:
+  - "resources/istio-manifests/*.template"
+  - "resources/kubernetes-manifests/deployments/*.template"
+
+outputs:
+- name: component.onlineBoutiqueApp.host

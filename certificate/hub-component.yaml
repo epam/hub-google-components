@@ -1,0 +1,33 @@
+---
+version: 1
+kind: component
+meta:
+  name: certificate
+  brief: GCP SSL certificate
+  version: 1
+  source:
+      dir: ./
+
+requires:
+- terraform
+
+parameters:
+- name: projectId
+  env: TF_VAR_project
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: stateBucketName
+  env: STATE_BUCKET
+
+- name: component.certificate
+  parameters:
+  - name: name
+    env: TF_VAR_name
+  - name: description
+    value: Self signed certificate for web server sandbox
+    env: TF_VAR_description
+
+outputs:
+- name: component.certificate.sslCertificate
+  fromTfVar: ssl_certificate

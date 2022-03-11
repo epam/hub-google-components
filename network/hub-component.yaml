@@ -1,0 +1,39 @@
+---
+version: 1
+kind: component
+meta:
+  name: network
+  brief: GCP Virtual Network
+  version: 1
+  source:
+      dir: ../network/
+
+requires:
+- terraform
+
+parameters:
+- name: projectId
+  env: TF_VAR_project
+- name: dns.domain
+  env: DOMAIN_NAME
+- name: cloud.region
+  env: TF_VAR_region
+
+- name: stateBucketName
+  env: STATE_BUCKET
+
+- name: component.network
+  parameters:
+  - name: name
+    value: default
+    env: TF_VAR_name
+  - name: autocreateSubnets
+    value: true
+    env: TF_VAR_autocreate_subnets
+  - name: subnetwork.cidr
+    env: TF_VAR_cidr
+    empty: allow
+
+outputs:
+- name: component.network.subnetwork
+  fromTfVar: subnetwork

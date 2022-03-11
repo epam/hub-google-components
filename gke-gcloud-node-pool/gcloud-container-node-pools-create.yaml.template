@@ -1,0 +1,12 @@
+--zone: ${component.gkeNodePool.zone}
+--cluster: ${component.gkeNodePool.clusterName}
+--num-nodes: ${component.gkeNodePool.nodeCount}
+--machine-type: ${component.gkeNodePool.machineType}
+
+# Additional node pool configuration, see https://cloud.google.com/sdk/gcloud/reference/container/node-pools/create
+--tags: 
+  - sandbox
+--enable-autoscaling:
+--max-nodes: 3
+--min-nodes: 1 
+--preemptible:

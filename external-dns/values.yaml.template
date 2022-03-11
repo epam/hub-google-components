@@ -1,0 +1,17 @@
+sources:
+# - service
+- ingress
+# - crd
+
+provider: google
+aws:
+  zoneType: "public"
+  # preferCNAME: "true"
+  evaluateTargetHealth: "true"
+
+domainFilters:
+- "${dns.domain}"
+
+interval: "1m"
+logLevel: debug
+policy: upsert-only

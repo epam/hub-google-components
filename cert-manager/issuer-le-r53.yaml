@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: "letsencrypt-superhub-io"
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: peter@bcware.io
+    privateKeySecretRef:
+      name: "letsencrypt-superhub-io"
+    solvers:
+    # first try DNS solver selected explicitly via label
+    - dns01:
+        route53:
+          region: us-east-1
+      selector:
+        matchLabels:
+          "stuff.epam.superhub.io/use-dns01-solver": "true"
+    # then try HTTP solver that only works with Ingress
+    - http01:
+        ingress: {}
+    # pass-tru for *.domain wildcard certs
+    - dns01:
+        route53:
+          region: us-east-1

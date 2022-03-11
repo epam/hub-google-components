@@ -1,0 +1,17 @@
+--zone: ${component.gke.zone}
+--cluster-version: ${component.gke.version}
+--num-nodes: ${component.gke.nodeCount}
+--machine-type: ${component.gke.machineType}
+
+# Additional cluster configuration, see: https://cloud.google.com/sdk/gcloud/reference/container/clusters/create 
+--tags: 
+  - sandbox
+--enable-autoscaling:
+--max-nodes: 3
+--min-nodes: 1 
+--preemptible:
+--addons:
+  - NetworkPolicy
+  - NodeLocalDNS
+--workload-pool: ${projectId}.svc.id.goog
+
