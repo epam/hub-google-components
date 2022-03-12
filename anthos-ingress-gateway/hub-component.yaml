@@ -17,6 +17,12 @@ parameters:
 - name: dns.domain
   env: DOMAIN_NAME
 
+- name: component.gke.name
+  env: NAME  
+- name: component.gke.zone
+  empty: allow
+  env: ZONE    
+
 - name: component.anthosServiceMesh.revision
   env: ISTIO_REVISION
 
