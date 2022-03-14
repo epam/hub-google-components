@@ -8,9 +8,6 @@ meta:
   source:
       dir: ../online-boutique-app/
 
-requires:
-- kubernetes
-
 parameters:
 - name: projectId
   env: PROJECT

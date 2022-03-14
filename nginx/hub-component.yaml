@@ -15,7 +15,6 @@ meta:
       dir: components/nginxing
 
 requires:
-- kubernetes
 - helm
 
 provides:

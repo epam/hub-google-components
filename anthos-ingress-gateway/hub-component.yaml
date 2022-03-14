@@ -8,9 +8,6 @@ meta:
   source:
       dir: ../anthos-ingress-gateway/
 
-requires:
-- kubernetes
-
 parameters:
 - name: projectId
   env: PROJECT
