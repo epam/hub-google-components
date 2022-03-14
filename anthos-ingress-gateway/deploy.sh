@@ -1,7 +1,7 @@
 #!/bin/bash
 
 gcloud container clusters get-credentials "$NAME" --zone "$ZONE"
-kubectl config delete-context "$DOMAIN_NAME" 
+kubectl config delete-context "$DOMAIN_NAME" > /dev/null 2>&1 
 kubectl config rename-context gke_"$PROJECT"_"$ZONE"_"$NAME" "$DOMAIN_NAME"
 
 kubectl="kubectl --context=$DOMAIN_NAME"

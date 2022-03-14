@@ -16,6 +16,7 @@ parameters:
   env: PROJECT
 - name: dns.domain
   env: DOMAIN_NAME
+- name: hubStackName
 
 - name: component.gke
   parameters:
