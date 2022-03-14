@@ -8,9 +8,6 @@ meta:
   source:
       dir: ../anthos-service-mesh/
 
-requires:
-- kubernetes
-
 parameters:
 - name: projectId
   env: PROJECT
