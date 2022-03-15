@@ -34,7 +34,8 @@ module "load_balancer" {
         host                = null
         logging             = null
         timeout_sec         = null
-        request_path        = "/"
+        # FIXME: request pass in case of Wordpress. Due to 301|302 responce codes leads to unhealthy status
+        request_path        = "/readme.html"
         port                = 80
       }
 
