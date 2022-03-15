@@ -15,7 +15,7 @@ module "vpc" {
 
   firewall_rules = [
     {
-      name        = "allow-ssh-ingress"
+      name        = "${var.name}-allow-ssh"
       direction   = "INGRESS"
       description = "Allow ssh connection"
       # The Identity Aware Proxy CIDR for TCP forwarding and tunnel SSH through IAP
