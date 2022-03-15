@@ -8,10 +8,10 @@ module "private_service_access" {
 }
 
 module "sql" {
-  source  = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
+  source  = "GoogleCloudPlatform/sql-db/google//modules/mysql"
   version = "~> 9.0.0"
 
-  database_version     = "POSTGRES_12"
+  database_version     = "MYSQL_5_7"
   name                 = var.name
   project_id           = var.project
   region               = var.region

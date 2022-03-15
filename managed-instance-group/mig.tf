@@ -1,3 +1,12 @@
+data "template_file" "startup_script" {
+  template = "${format("%s%s", file("${path.module}/scripts/common.sh.tpl"), file("${path.module}/scripts/${var.web_server}.sh.tpl"))}"
+
+  vars = {
+    WEB_SERVER  = var.web_server
+    DOMAIN_NAME = var.domain_name
+  }
+}
+
 data "google_service_account" "vm" {
   account_id = var.service_account
 }
@@ -15,6 +24,7 @@ module "instance_template" {
   disk_type            = var.disk_type
   machine_type         = var.machine_type
   region               = var.region
+  startup_script       = data.template_file.startup_script.rendered
   source_image         = var.image
   source_image_project = var.image_project
   tags = compact([

@@ -2,6 +2,10 @@ variable "project" {
   type = string
 }
 
+variable "domain_name" {
+  type = string
+}
+
 variable "hostname_prefix" {
   type = string
 }
@@ -43,5 +47,9 @@ variable "target_size" {
 }
 
 variable "nat_router_name" {
+  type = string
+}
+
+variable "web_server" {
   type = string
 }

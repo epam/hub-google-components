@@ -54,6 +54,10 @@ parameters:
   - name: natRouterName
     env: TF_VAR_nat_router_name
     empty: allow
+  - name: webServer
+    value: apache2
+    brief: "Avaible web servers are: nginx or apache2"
+    env: TF_VAR_web_server
 
 outputs:
 - name: component.managedInstanceGroup.instanceGroup
