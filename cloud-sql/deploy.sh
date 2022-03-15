@@ -8,3 +8,5 @@ TFPLAN=.terraform/"$DOMAIN_NAME".plan
 
 terraform plan -out="$TFPLAN"
 terraform apply "$TFPLAN"
+
+echo "db_password = $(terraform output --json | jq -crM '.db_password_raw.value')"
