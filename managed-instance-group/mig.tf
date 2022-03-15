@@ -4,6 +4,12 @@ data "template_file" "startup_script" {
   vars = {
     WEB_SERVER  = var.web_server
     DOMAIN_NAME = var.domain_name
+
+    DB_NAME     = var.db_name
+    DB_USER     = var.db_user
+    DB_PASSWORD = var.db_password
+    DB_HOST     = var.db_host
+    WP_SAlT     = var.wp_salt
   }
 }
 

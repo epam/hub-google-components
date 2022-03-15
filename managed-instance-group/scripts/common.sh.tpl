@@ -3,8 +3,6 @@
 set -e
 export HOME=/root
 export PHP_VERSION=8.1
-# export JOOMLA_VERSION=4-1-0
-# export JOOMLA_PACKAGE=Joomla_$JOOMLA_VERSION-Stable-Full_Package
 
 # Install dependencies from apt
 apt update
@@ -22,15 +20,41 @@ apt install -y \
         php$PHP_VERSION-zip \
         php$PHP_VERSION-curl
 
-# Installing Joomla
-# curl -L -O "https://downloads.joomla.org/cms/joomla$(echo $JOOMLA_VERSION | cut -d - -f 1)/$JOOMLA_VERSION/$JOOMLA_PACKAGE.tar.bz2"
+# Installing wordpress
+curl -L -O "https://wordpress.org/latest.tar.gz"
 mkdir -p /var/www/${DOMAIN_NAME}
-# tar -xjf $JOOMLA_PACKAGE.tar.bz2 -C /var/www/${DOMAIN_NAME}
+tar -xzf latest.tar.gz
+mv ./wordpress/* /var/www/${DOMAIN_NAME}
 
-cat > /var/www/${DOMAIN_NAME}/index.php << 'EOF'
+# Generating WP config file
+cat > /var/www/${DOMAIN_NAME}/wp-config.php << 'EOF'
 <?php
-    phpinfo();
-?>
+
+define('DB_NAME', '${DB_NAME}');
+define('DB_USER', '${DB_USER}');
+define('DB_PASSWORD', '${DB_PASSWORD}');
+define('DB_HOST', '${DB_HOST}');
+define('DB_CHARSET', 'utf8');
+define('DB_COLLATE', '');
+
+${WP_SAlT}
+
+$table_prefix = 'wp_';
+
+define( 'WP_DEBUG', false );
+
+if ( strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https' ) !== false ) {
+    $_SERVER['HTTPS'] = 'on';
+}
+/* That's all, stop editing! Happy publishing. */
+
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
 EOF
 
 # Change ownership and permissions for www-data user
