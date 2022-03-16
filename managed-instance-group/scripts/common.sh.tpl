@@ -4,6 +4,13 @@ set -e
 export HOME=/root
 export PHP_VERSION=8.1
 
+
+# Add Stackdriver Monitoring agent repo
+curl -s https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh | sudo bash
+
+# Add Stackdriver Logging agent repo
+curl -s https://dl.google.com/cloudagents/add-logging-agent-repo.sh | sudo bash
+
 # Install dependencies from apt
 apt update
 apt install -y lsb-release ca-certificates apt-transport-https software-properties-common gnupg2
@@ -11,6 +18,9 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /et
 curl -s -o - https://packages.sury.org/php/apt.gpg | sudo apt-key add -
 apt update
 apt install -y \
+        stackdriver-agent \
+        google-fluentd \
+        google-fluentd-catch-all-config \
         ${WEB_SERVER} \
         php$PHP_VERSION \
         php$PHP_VERSION-fpm \
@@ -19,6 +29,12 @@ apt install -y \
         php$PHP_VERSION-mbstring \
         php$PHP_VERSION-zip \
         php$PHP_VERSION-curl
+
+# Start monitoring and logging agens
+systemctl enable stackdriver-agent
+systemctl start stackdriver-agent
+systemctl enable google-fluentd
+systemctl start google-fluentd
 
 # Installing wordpress
 curl -L -O "https://wordpress.org/latest.tar.gz"
