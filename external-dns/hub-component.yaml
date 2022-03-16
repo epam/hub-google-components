@@ -9,8 +9,6 @@ meta:
 
 requires:
 - helm
-provides:
-- docker-registry
 
 parameters:
 - name: hub.deploymentId
@@ -19,6 +17,11 @@ parameters:
 
 - name: projectId
   env: PROJECT
+- name: component.gke.name
+  env: NAME  
+- name: component.gke.zone
+  empty: allow
+  env: ZONE     
 - name: dns.domain
   env: DOMAIN_NAME
 

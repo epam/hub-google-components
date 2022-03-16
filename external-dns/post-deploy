@@ -1,7 +1,7 @@
 #!/bin/sh -xe
 
 SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
-SA_NAME="$HUB_COMPONENT"-"$SA_SUFFIX"
+SA_NAME=$(echo "$HUB_COMPONENT"-"$SA_SUFFIX" | cut -c1-20)a
 
 gcloud iam service-accounts create "$SA_NAME" \
     --project="$PROJECT"
@@ -20,5 +20,5 @@ kubectl="kubectl --context=$DOMAIN_NAME"
 $kubectl annotate serviceaccount --namespace="$NAMESPACE" --overwrite external-dns \
   "iam.gke.io/gcp-service-account=$SA_NAME@$PROJECT.iam.gserviceaccount.com"
 
-
+$kubectl --namespace="$NAMESPACE" rollout restart deployment external-dns
 

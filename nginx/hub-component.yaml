@@ -2,15 +2,7 @@
 version: 1
 kind: component
 meta:
-  name: nginxing
-  title: Nginx
-  brief: Ingress controller
-  description: Ingress controller for Kubernetes using NGINX as a reverse proxy and load balancer
-  category: Edge Proxy
-  version: 0.41.2
-  maturity: ga
-  license: BSD
-  icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
+  name: nginx
   source:
       dir: components/nginxing
 
@@ -18,9 +10,17 @@ requires:
 - helm
 
 provides:
-- nginxing
+- nginx
 
 parameters:
+- name: projectId
+  env: PROJECT
+- name: component.gke.name
+  env: NAME  
+- name: component.gke.zone
+  empty: allow
+  env: ZONE    
+
 - name: hub.componentName
   env: COMPONENT_NAME  
 - name: dns.domain
