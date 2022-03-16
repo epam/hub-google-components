@@ -12,6 +12,6 @@ aws:
 domainFilters:
 - "${dns.domain}"
 
-interval: "1m"
+interval: "30s"
 logLevel: debug
 policy: upsert-only
