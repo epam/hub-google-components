@@ -28,8 +28,6 @@ parameters:
   - name: network
     env: TF_VAR_network
     value: default
-  - name: sslCertificate
-    env: TF_VAR_ssl_certificate
   - name: instanceGroup
     env: TF_VAR_instance_group
 

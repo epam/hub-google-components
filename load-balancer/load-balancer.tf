@@ -2,15 +2,16 @@ module "load_balancer" {
   source  = "GoogleCloudPlatform/lb-http/google"
   version = "~> 6.2.0"
 
-  project              = var.project
-  name                 = var.name
-  target_tags          = [var.name]
-  firewall_networks    = [var.network]
-  ssl                  = true
-  ssl_certificates     = [var.ssl_certificate]
-  use_ssl_certificates = true
-  https_redirect       = true
-  create_address       = true
+  project           = var.project
+  name              = var.name
+  target_tags       = [var.name]
+  firewall_networks = [var.network]
+
+  ssl                             = true
+  managed_ssl_certificate_domains = [var.domain_name]
+
+  https_redirect = true
+  create_address = true
 
   backends = {
     default = {
@@ -35,8 +36,8 @@ module "load_balancer" {
         logging             = null
         timeout_sec         = null
         # FIXME: request pass in case of Wordpress. Due to 301|302 responce codes leads to unhealthy status
-        request_path        = "/readme.html"
-        port                = 80
+        request_path = "/readme.html"
+        port         = 80
       }
 
       log_config = {
