@@ -23,7 +23,7 @@ module "sql" {
   random_instance_name = true
 
   ip_configuration = {
-    authorized_networks = []
+    authorized_networks = var.authorized_networks
     ipv4_enabled        = var.public_ip
     private_network     = "projects/${var.project}/global/networks/${var.network}"
     require_ssl         = false

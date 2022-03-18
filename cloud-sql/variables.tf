@@ -33,3 +33,12 @@ variable "db_password" {
 variable "public_ip" {
   type = bool
 }
+
+variable "authorized_networks" {
+  default = [
+    { 
+      "name" = "all",
+      "value" = "0.0.0.0/0" 
+    }
+  ]
+}
