@@ -55,3 +55,5 @@ outputs:
   fromTfVar: db_password
 - name: component.cloudSql.privateIp
   fromTfVar: private_ip
+- name: component.cloudSql.publicIp
+  fromTfVar: public_ip 

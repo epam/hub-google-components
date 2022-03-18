@@ -6,3 +6,7 @@ output "db_password_raw" {
 output "private_ip" {
   value = module.sql.private_ip_address
 }
+
+output "public_ip" {
+  value = module.sql.public_ip_address
+}
