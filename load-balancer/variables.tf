@@ -17,3 +17,7 @@ variable "instance_group" {
 variable "domain_name" {
   type = string
 }
+
+variable "ssl_certificate" {
+  type = string
+}

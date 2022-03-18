@@ -30,6 +30,9 @@ parameters:
     value: default
   - name: instanceGroup
     env: TF_VAR_instance_group
+  - name: sslCertificate
+    env: TF_VAR_ssl_certificate
+    empty: allow
 
 outputs:
 - name: component.loadBalancer.externalIp

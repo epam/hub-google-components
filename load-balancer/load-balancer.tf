@@ -8,7 +8,9 @@ module "load_balancer" {
   firewall_networks = [var.network]
 
   ssl                             = true
-  managed_ssl_certificate_domains = [var.domain_name]
+  use_ssl_certificates            = var.ssl_certificate != ""
+  ssl_certificates                = [var.ssl_certificate]
+  managed_ssl_certificate_domains = var.ssl_certificate != "" ? [] : [var.domain_name]
 
   https_redirect = true
   create_address = true
