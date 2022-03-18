@@ -24,7 +24,7 @@ module "sql" {
 
   ip_configuration = {
     authorized_networks = []
-    ipv4_enabled        = false
+    ipv4_enabled        = var.public_ip
     private_network     = "projects/${var.project}/global/networks/${var.network}"
     require_ssl         = false
     allocated_ip_range  = module.private_service_access.google_compute_global_address_name

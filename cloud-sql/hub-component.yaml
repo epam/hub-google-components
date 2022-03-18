@@ -43,6 +43,9 @@ parameters:
   - name: dbPassword
     env: TF_VAR_db_password
     empty: allow
+  - name: publicIP
+    env: TF_VAR_public_ip
+    value: false
 
 outputs:
 - name: component.cloudSql.dbName

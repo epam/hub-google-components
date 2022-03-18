@@ -29,3 +29,7 @@ variable "db_user" {
 variable "db_password" {
   type = string
 }
+
+variable "public_ip" {
+  type = bool
+}
