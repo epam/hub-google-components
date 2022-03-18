@@ -2,8 +2,8 @@
 version: 1
 kind: component
 meta:
-  name: certificate
-  brief: Self signed SSL certificate
+  name: gcp-managed-ssl-certificate
+  brief: GCP managed SSL certificate
   version: 1
   source:
       dir: ./
@@ -25,7 +25,7 @@ parameters:
   - name: name
     env: TF_VAR_name
   - name: description
-    value: Self signed certificate for web server sandbox
+    value: GCP managed SSL certificate
     env: TF_VAR_description
 
 outputs:
