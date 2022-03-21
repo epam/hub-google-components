@@ -1,0 +1,35 @@
+---
+version: 1
+kind: component
+meta:
+  name: ops-agent
+  brief: GCP primary agent for collecting telemetry from your Compute Engine instances
+  version: 1
+  source:
+      dir: ./
+
+requires:
+- terraform
+
+parameters:
+- name: projectId
+  env: TF_VAR_project
+- name: dns.domain
+  env: DOMAIN_NAME
+- name: cloud.region
+  env: TF_VAR_region
+
+- name: stateBucketName
+  env: STATE_BUCKET
+
+- name: component.opsAgent
+  parameters:
+  - name: name
+    value: default
+    env: TF_VAR_hostname_prefix
+  - name: osName
+    value: debian
+    env: TF_VAR_os_name
+  - name: osVersion
+    value: "10"
+    env: TF_VAR_os_version
