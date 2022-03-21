@@ -20,7 +20,7 @@ The component has the following directory structure:
 | --------- | ---------   | --------- | ---------
 component.k6SQLloadTest.dbKind | SQL database kind | mysql | Yes
 component.k6SQLloadTest.dbHost | SQL database hostname | n/a | Yes
-component.k6SQLloadTest.dnName | SQL database name | n/a | Yes
+component.k6SQLloadTest.dbName | SQL database name | n/a | Yes
 component.k6SQLloadTest.dbUser | SQL database user | n/a | Yes
 component.k6SQLloadTest.dbPassword | SQL database password | n/a | Yes
 component.k6SQLloadTest.testName | Test name | example | Yes
