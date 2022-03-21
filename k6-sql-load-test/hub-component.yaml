@@ -1,0 +1,36 @@
+---
+version: 1
+kind: component
+meta:
+  name: k6-sql-load-test
+  source:
+      dir: components/k6-sql-load-test
+
+parameters:
+- name: component.k6SQLloadTest
+  parameters:
+  - name: dbKind
+    value: mysql
+    env: KIND
+  - name: dbHost
+    value: default
+  - name: dbName
+    value: default
+  - name: dbUser
+    value: default
+  - name: dbPassword   
+    value: default
+  - name: testName
+    value: example
+    env: TEST_NAME
+  - name: testDuration
+    value: 100s
+    env: DURATION
+  - name: numberOfUsers
+    value: 100 
+    env: USERS
+
+templates:
+  files:
+  - "*.template"
+  
