@@ -1,7 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2154
 
-echo "Pipele 2"
 
 terraform init -reconfigure -force-copy \
 		-backend-config="bucket=$STATE_BUCKET" \
