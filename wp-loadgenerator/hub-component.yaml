@@ -1,0 +1,25 @@
+---
+version: 1
+kind: component
+meta:
+  name: wp-loadgenerator
+  brief: Load generator for Wordpress
+  source:
+      dir: ./
+
+parameters:
+- name: dns.domain
+  env: DOMAIN_NAME
+
+- name: component.wp-loadgenerator
+  parameters:
+  - name: users
+    value: 50
+    env: USERS_COUNT
+  - name: spawnRate
+    value: 10
+    env: SPAWN_RATE
+  - name: runTime
+    value: 5m
+    brief: Stop after the specified amount of time, e.g. (300s, 20m, 3h, 1h30m, etc.)
+    env: RUN_TIME
