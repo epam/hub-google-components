@@ -8,11 +8,13 @@ parameters:
 - name: dns.name
 - name: hub.componentName
 - name: gke.nodeCount
-  value: 3
+  value: 1
   env: TF_VAR_node_count
 - name: gke.machineType
   value: "n1-standard-1"
   env: TF_VAR_machine_type
+- name: component.network.subnetwork
+  env: TF_VAR_subnetwork
 
 outputs:
 - name: composer.airflowUrl
