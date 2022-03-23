@@ -2,27 +2,30 @@ version: 1
 kind: component
 
 requires:
-- terraform
+  - terraform
 
 parameters:
-- name: dns.name
-- name: hub.componentName
-- name: gke.nodeCount
-  value: 1
-  env: TF_VAR_node_count
-- name: gke.machineType
-  value: "n1-standard-1"
-  env: TF_VAR_machine_type
-- name: component.network.subnetwork
-  env: TF_VAR_subnetwork
+  - name: dns.name
+  - name: hub.componentName
+  - name: gke.nodeCount
+    value: 1
+    env: TF_VAR_node_count
+  - name: gke.machineType
+    value: "n1-standard-1"
+    env: TF_VAR_node_machine_type
+  - name: component.network.subnetwork
+    env: TF_VAR_subnetwork
+  - name: composer.version
+    value: v1
+    env: TF_VAR_composer_version
 
 outputs:
-- name: composer.airflowUrl
-  fromTfVar: airflow_uri
-- name: composer.gcsBucket
-  fromTfVar: gcs_bucket
-- name: composer.gkeCluster
-  fromTfVar: gke_cluster
+  - name: composer.airflowUrl
+    fromTfVar: airflow_uri
+  - name: composer.gcsBucket
+    fromTfVar: gcs_bucket
+  - name: composer.gkeCluster
+    fromTfVar: gke_cluster
 
 templates:
   files: ["*.template"]
