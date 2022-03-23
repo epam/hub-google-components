@@ -8,7 +8,7 @@ parameters:
   - name: dns.name
   - name: hub.componentName
   - name: gke.nodeCount
-    value: 1
+    value: 3
     env: TF_VAR_node_count
   - name: gke.machineType
     value: "n1-standard-1"

@@ -22,8 +22,11 @@ Pre deployent script will enable: `composer.googleapis.com`
 
 | Name      | Description | Default Value | Required    
 | :-------- | :--------   | :-------- | :--:
-| `gke.nodeCount` | Number of GKE nodes for compose environment | `3` | x
+| `gke.nodeCount` | Number of GKE nodes for compose environment. Must be at least `3` | `3` | x
 | `gke.machineType` | Number of GKE nodes for compose environment | `n1-standard-1` | x
+| `composer.version` | Version of composer (`v1` or `v2`) when `v2` it will set environment images to `composer-2.0.0-preview.3-airflow-2.1.2` | `v1` | x
+| `component.network.subnetwork` | Selfink to the subnetwork for compose environment | | x |
+
 
 ## Dependencies
 

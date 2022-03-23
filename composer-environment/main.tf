@@ -21,9 +21,9 @@ module "composer" {
   composer_env_name = var.composer_env_name
   project_id        = data.google_client_config.current.project
   region            = data.google_client_config.current.region
+  zone              = data.google_client_config.current.zone
   image_version     = local.image_version
   node_count        = var.node_count
-  zone              = data.google_client_config.current.zone
   machine_type      = var.node_machine_type
   network           = local.network_name
   subnetwork        = data.google_compute_subnetwork.this.name
