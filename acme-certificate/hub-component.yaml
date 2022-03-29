@@ -1,0 +1,27 @@
+version: 1
+kind: component
+meta:
+  name: acme-certificate
+
+requires:
+  - terraform
+
+parameters:
+  - name: certificate.commonName
+    env: TF_VAR_common_name
+  - name: certificate.alternativeNames
+    empty: allow
+    env: TF_VAR_alternative_names
+  - name: certificate.acme.email
+    env: TF_VAR_email
+    empty: allow
+  - name: certificate.acme.endpoint
+    env: TF_VAR_endpoint
+    value: https://acme-staging-v02.api.letsencrypt.org/directory
+outputs:
+  - name: certificate.cert
+    fromTfVar: cert_file
+  - name: certificate.key
+    fromTfVar: key_file
+  - name: certificate.chain.cert
+    fromTfVar: chain_file
