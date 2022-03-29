@@ -15,7 +15,9 @@ The component has the following directory structure:
 ```
 
 | Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | ---------
+| --------- | ---------   | --------- | :-------:
+| `component.cloudSql.version` |  The MySQL, PostgreSQL or SQL Server version to use: List of supported values can be found [here](https://cloud.google.com/sql/docs/db-versions) | `POSTGRES_12` | x |
 
+> TODO: complete input and out put parameter references
 
 ## Dependencies

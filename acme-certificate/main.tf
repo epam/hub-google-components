@@ -1,10 +1,11 @@
 
 locals {
   # FIXME: current terraform doesn't have a nice way how to enter a list(str) a default value empty
-  alt_names  = [for s in compact(split(" ", var.alternative_names)) : trimspace(s)]
-  dns_names  = concat([var.common_name], local.alt_names)
-  email      = coalesce(var.email_address, "admin@${var.common_name}")
-  output_dir = "${path.module}/outputs/${var.common_name}"
+  alt_names   = [for s in compact(split(" ", var.alternative_names)) : trimspace(s)]
+  dns_names   = concat([var.common_name], local.alt_names)
+  email       = coalesce(var.email_address, "admin@${var.common_name}")
+  output_dir  = "${path.module}/outputs/${var.common_name}"
+  name_prefix = lower(replace(substr(var.common_name, 0, 36), ".", "-"))
 }
 
 resource "tls_private_key" "registration" {
@@ -43,6 +44,17 @@ resource "acme_certificate" "this" {
     config = {
       GCE_PROJECT = data.google_client_config.current.project
     }
+  }
+}
+
+resource "google_compute_ssl_certificate" "this" {
+  name_prefix = local.name_prefix
+  description = "Imported ACME certificate for: ${var.common_name}"
+  private_key = acme_certificate.this.certificate_pem
+  certificate = acme_certificate.this.private_key_pem
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 

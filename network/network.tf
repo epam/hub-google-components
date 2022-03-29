@@ -1,16 +1,17 @@
+
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 5.0.0"
 
-  project_id              = var.project
+  project_id              = data.google_client_config.current.project
   network_name            = var.name
   auto_create_subnetworks = var.autocreate_subnets
 
   subnets = var.autocreate_subnets ? [] : [{
-    subnet_name              = var.name
-    subnet_ip                = var.cidr
-    subnet_region            = var.region
-    subnet_private_access    = "true"
+    subnet_name           = var.name
+    subnet_ip             = var.cidr
+    subnet_region         = data.google_client_config.current.region
+    subnet_private_access = "true"
   }]
 
   firewall_rules = [

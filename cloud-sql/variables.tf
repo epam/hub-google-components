@@ -1,18 +1,8 @@
-variable "project" {
-  type = string
-}
 
 variable "name" {
   type = string
 }
 
-variable "region" {
-  type = string
-}
-
-variable "zone" {
-  type = string
-}
 
 variable "network" {
   type = string
@@ -36,9 +26,13 @@ variable "public_ip" {
 
 variable "authorized_networks" {
   default = [
-    { 
-      "name" = "all",
-      "value" = "0.0.0.0/0" 
+    {
+      "name"  = "all",
+      "value" = "0.0.0.0/0"
     }
   ]
+}
+
+variable "database_version" {
+  default = "MYSQL_5_7"
 }

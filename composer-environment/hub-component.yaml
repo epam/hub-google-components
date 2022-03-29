@@ -20,12 +20,14 @@ parameters:
     env: TF_VAR_composer_version
 
 outputs:
-  - name: composer.airflowUrl
+  - name: composer.airflow.url
     fromTfVar: airflow_uri
-  - name: composer.gcsBucket
+  - name: composer.gcs.bucket
     fromTfVar: gcs_bucket
-  - name: composer.gkeCluster
+  - name: composer.gke.cluster
     fromTfVar: gke_cluster
+  - name: composer.gke.kubeconfig
+    fromTfVar: kubeconfig
 
 templates:
   files: ["*.template"]

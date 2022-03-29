@@ -3,6 +3,6 @@ terraform {
   backend "gcs" {}
 }
 
-provider "google" {
-  project = var.project
-}
+provider "google" {}
+
+data "google_client_config" "current" {}

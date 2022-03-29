@@ -1,9 +1,13 @@
+locals {
+  project_id = data.google_client_config.current.project
+}
+
 module "private_service_access" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/private_service_access"
   version = "~> 9.0.0"
 
   ip_version  = "IPV4"
-  project_id  = var.project
+  project_id  = local.project_id
   vpc_network = var.network
 }
 
@@ -11,11 +15,11 @@ module "sql" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/mysql"
   version = "~> 9.0.0"
 
-  database_version     = "MYSQL_5_7"
+  database_version     = var.database_version
   name                 = var.name
-  project_id           = var.project
-  region               = var.region
-  zone                 = var.zone
+  project_id           = local.project_id
+  region               = data.google_client_config.current.region
+  zone                 = data.google_client_config.current.zone
   db_name              = var.db_name
   user_name            = var.db_user
   user_password        = var.db_password
@@ -25,7 +29,7 @@ module "sql" {
   ip_configuration = {
     authorized_networks = var.authorized_networks
     ipv4_enabled        = var.public_ip
-    private_network     = "projects/${var.project}/global/networks/${var.network}"
+    private_network     = data.google_compute_network.current.id
     require_ssl         = false
     allocated_ip_range  = module.private_service_access.google_compute_global_address_name
   }
