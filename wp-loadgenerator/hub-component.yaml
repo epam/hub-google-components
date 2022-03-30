@@ -1,11 +1,5 @@
----
 version: 1
 kind: component
-meta:
-  name: wp-loadgenerator
-  brief: Load generator for Wordpress
-  source:
-      dir: ./
 
 parameters:
 - name: dns.domain
@@ -13,6 +7,9 @@ parameters:
 
 - name: component.wp-loadgenerator
   parameters:
+  - name: targetHost
+    brief: http target endpoint where locust will send the traffic
+    value: https://${dns.domain}
   - name: users
     value: 50
     env: USERS_COUNT

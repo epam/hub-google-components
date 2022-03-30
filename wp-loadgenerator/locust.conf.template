@@ -1,10 +1,10 @@
 # see: https://docs.locust.io/en/stable/configuration.html#configuration-file
 locustfile = locustfile.py
-headless = true
+headless = false
+web-port = 8080
 master = true
-host = https://${dns.domain}
+host = ${component.wp-loadgenerator.targetHost}
 users = ${component.wp-loadgenerator.users}
 spawn-rate = ${component.wp-loadgenerator.spawnRate}
 run-time = ${component.wp-loadgenerator.runTime}
 exit-code-on-error = 0
-verify = False
