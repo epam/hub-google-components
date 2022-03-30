@@ -1,0 +1,10 @@
+#!/bin/bash -ex
+
+#BigQuery API
+gcloud services enable bigquery.googleapis.com
+#BigQuery Migration API
+gcloud services enable bigquerymigration.googleapis.com
+# BigQuery Storage API
+gcloud services enable bigquerystorage.googleapis.com
+# Dataflow API
+gcloud services enable dataflow.googleapis.com

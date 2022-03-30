@@ -1,0 +1,34 @@
+version: 1
+kind: component
+meta:
+  name: dataflow-example
+
+requires:
+  - terraform
+
+parameters:
+  - name: dataflow-example
+    parameters:
+      - name: bigquery
+        parameters:
+          - name: datasetName
+            value: average_weather
+            env: TF_VAR_dataset_name
+          - name: tableName
+            value: average_weather
+            env: TF_VAR_table_name
+          - name: description
+            empty: allow
+            value: "Example Airflow DAG that creates a Cloud Dataflow workflow which takes a text file and adds the rows to a BigQuery table"
+            env: TF_VAR_description
+          - name: location
+            value: US
+            brief: US or EU
+            env: TF_VAR_location
+          - name: deleteContentsOnDestroy
+            value: false
+            env: TF_VAR_delete_contents_on_destroy
+      - name: composer.envName
+        env: TF_VAR_composer_env_name
+      - name: composer.bucket
+        env: TF_VAR_composer_bucket

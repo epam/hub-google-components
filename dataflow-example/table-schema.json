@@ -1,0 +1,32 @@
+[
+    {
+        "name": "location",
+        "type": "GEOGRAPHY",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "average_temperature",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "month",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "inches_of_rain",
+        "type": "NUMERIC",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "is_current",
+        "type": "BOOLEAN",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "latest_measurement",
+        "type": "DATE",
+        "mode": "NULLABLE"
+    }
+]
