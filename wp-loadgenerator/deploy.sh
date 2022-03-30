@@ -1,28 +1,31 @@
 #!/bin/bash -e
 
-URL="https://$DOMAIN_NAME"
+if test ! -d .venv; then
+    python3 -m venv .venv
+    # shellcheck disable=SC1091
+    source .venv/bin/activate
+    pip3 install --upgrade pip
+else
+    # shellcheck disable=SC1091
+    source .venv/bin/activate
+fi
 
-python3 -m venv .venv
-# shellcheck disable=SC1091
-source .venv/bin/activate
-pip3 install --user "locust==2.8.4"
+if test ! -x locust; then
+    pip3 install "locust==2.8.4"
+fi
 
 expected="200"
 success=""
 cat << EOF
-Waiting when $URL becomes available (expected http code: $expected)
+Waiting when $HOST becomes available (expected http code: $expected)
 in the progress printing first letter of http response
 where: 0: not available, 2: OK, 4: HTTP error, 5: service error
 
 EOF
-
-echo "Waiting when $URL becomes available"
-echo "Printing first letter of http response"
-echo -n "Where: 0: not available, 2: OK, 4: HTTP error, 5: service error: " 
 # 120 * 5 = 600sec
 for _ in $(seq 120); do
     # shellcheck disable=SC1083
-    code="$(curl -kLs --write-out %{http_code} --silent --output /dev/null "$URL")"
+    code="$(curl -kLs --write-out %{http_code} --output /dev/null "$HOST")"
     if test "$code" = "$expected"; then
         success="1"
         echo " done!"
@@ -37,3 +40,11 @@ if test -z "$success"; then
 fi
 
 locust --config locust.conf
+
+cat << EOF
+
+Outputs:
+
+test_report = "$(pwd)/test_result.html"
+
+EOF

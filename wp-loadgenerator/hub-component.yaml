@@ -10,6 +10,7 @@ parameters:
   - name: targetHost
     brief: http target endpoint where locust will send the traffic
     value: https://${dns.domain}
+    env: HOST
   - name: users
     value: 50
     env: USERS_COUNT
@@ -20,6 +21,10 @@ parameters:
     value: 5m
     brief: Stop after the specified amount of time, e.g. (300s, 20m, 3h, 1h30m, etc.)
     env: RUN_TIME
+
+outputs:
+  - name: component.wp-loadgenerator.testReport
+    fromTfVar: test_report
 
 templates:
   files: ["*.template"]
