@@ -23,3 +23,6 @@ parameters:
     value: 5m
     brief: Stop after the specified amount of time, e.g. (300s, 20m, 3h, 1h30m, etc.)
     env: RUN_TIME
+
+templates:
+  files: ["*.template"]

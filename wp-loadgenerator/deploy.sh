@@ -1,21 +1,32 @@
-#!/bin/bash
+#!/bin/bash -e
 
 URL="https://$DOMAIN_NAME"
 
 python3 -m venv .venv
+# shellcheck disable=SC1091
 source .venv/bin/activate
-pip3 install -r requirements.txt
+pip3 install --user "locust==2.8.4"
 
-TIMEOUT=600
-ATTEMP=0
-while test "$(curl --write-out %{http_code} --silent --output /dev/null "$URL")" != "200"
-do
-    ATTEMP=$((ATTEMP + 1))
-    echo "Wait while $URL become available... $(($ATTEMP * 5)) sec"
-    if [ "$ATTEMP" == "$TIMEOUT" ]; then
-        echo "Timeout Error";
+success=""
+echo "Waiting when $URL becomes available"
+echo "Printing first letter of http response"
+echo -n "Where: 0: not available, 2: OK, 4: HTTP error, 5: service error: " 
+expected="200"
+# 120 * 5 = 600sec
+for _ in $(seq 120); do
+    # shellcheck disable=SC1083
+    code="$(curl -kLs --write-out %{http_code} --silent --output /dev/null "$URL")"
+    if test "$code" = "$expected"; then
+        success="1"
+        echo " done!"
+        break
     fi
+    echo "$code" | head -c1
     sleep 5
 done
+echo
+if test -z "$success"; then
+    color w "Warning: timed out to wait "
+fi
 
-locust -f locustfile.py --users "$USERS_COUNT" --host "$URL" --headless --spawn-rate "$SPAWN_RATE" --run-time "$RUN_TIME" --exit-code-on-error 0
+locust --config locust.conf

@@ -28,5 +28,5 @@ class MyUser(HttpUser):
             "wp-comment-cookies-consent": "yes",
             "submit": "Post Comment",
             "comment_post_ID": 1,
-            "comment_parent": 0
-        })
+            "comment_parent": 0,
+        }, verify=False)
