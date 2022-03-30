@@ -1,1 +1,1 @@
-composer_env_name="${dns.name}-${hub.componentName}"
+composer_env_name="${composer.envName}"
