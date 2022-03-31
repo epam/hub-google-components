@@ -17,6 +17,7 @@ fi
 expected="200"
 success=""
 cat << EOF
+
 Waiting when $HOST becomes available (expected http code: $expected)
 in the progress printing first letter of http response
 where: 0: not available, 2: OK, 4: HTTP error, 5: service error
