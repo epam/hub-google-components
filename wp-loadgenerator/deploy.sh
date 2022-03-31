@@ -22,21 +22,21 @@ in the progress printing first letter of http response
 where: 0: not available, 2: OK, 4: HTTP error, 5: service error
 
 EOF
-# # 120 * 5 = 600sec
-# for _ in $(seq 120); do
-#     # shellcheck disable=SC1083
-#     code="$(curl -kLs --write-out %{http_code} --output /dev/null "$HOST")"
-#     if test "$code" = "$expected"; then
-#         success="1"
-#         echo " done!"
-#         break
-#     fi
-#     echo "$code" | head -c1
-#     sleep 5
-# done
-# if test -z "$success"; then
-#     color w " Timed out!"
-# fi
+# 120 * 5 = 600sec
+for _ in $(seq 120); do
+    # shellcheck disable=SC1083
+    code="$(curl -kLs --write-out %{http_code} --output /dev/null "$HOST")"
+    if test "$code" = "$expected"; then
+        success="1"
+        echo " done!"
+        break
+    fi
+    echo "$code" | head -c1
+    sleep 5
+done
+if test -z "$success"; then
+    color w " Timed out!"
+fi
 
 echo
 locust --config locust.conf
