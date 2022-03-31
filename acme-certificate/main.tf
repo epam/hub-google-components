@@ -47,17 +47,6 @@ resource "acme_certificate" "this" {
   }
 }
 
-resource "google_compute_ssl_certificate" "this" {
-  name_prefix = local.name_prefix
-  description = "Imported ACME certificate for: ${var.common_name}"
-  private_key = acme_certificate.this.certificate_pem
-  certificate = acme_certificate.this.private_key_pem
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "local_sensitive_file" "certificate" {
   content         = acme_certificate.this.certificate_pem
   filename        = "${local.output_dir}/certificate.pem"

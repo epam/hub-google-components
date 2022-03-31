@@ -25,3 +25,5 @@ outputs:
     fromTfVar: key_file
   - name: certificate.chain.cert
     fromTfVar: chain_file
+  - name: certificate.google.selfLink
+    fromTfVar: google_cert_selflink
