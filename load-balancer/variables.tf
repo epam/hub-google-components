@@ -1,23 +1,23 @@
-variable "project" {
-  type = string
+
+variable "name" {}
+
+variable "network" {}
+
+variable "instance_group" {}
+
+variable "domain_name" {}
+
+variable "ssl_certificate" {}
+
+variable "backend_port" {
+  type    = number
+  default = 80
 }
 
-variable "name" {
-  type = string
+variable "backend_protocol" {
+  default = "HTTP"
 }
 
-variable "network" {
-  type = string
-}
-
-variable "instance_group" {
-  type = string
-}
-
-variable "domain_name" {
-  type = string
-}
-
-variable "ssl_certificate" {
-  type = string
+variable "backend_healthcheck_path" {
+  default = "/"
 }

@@ -1,0 +1,9 @@
+domain_name     = "${dns.domain}"
+network         = "${component.network.name}"
+name            = "${component.loadBalancer.name}"
+instance_group  = "${component.loadBalancer.instanceGroup}"
+ssl_certificate = "${component.loadBalancer.sslCertificate}"
+
+backend_port             = "${component.loadBalancer.backendPort}"
+backend_protocol         = "${component.loadBalancer.backendProtocol}"
+backend_healthcheck_path = "${component.loadBalancer.backendHealthPath}"

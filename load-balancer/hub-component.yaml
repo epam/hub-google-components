@@ -12,28 +12,26 @@ requires:
 - terraform
 
 parameters:
-- name: projectId
-  env: TF_VAR_project
+- name: hub.componentName
 - name: dns.domain
-  env: DOMAIN_NAME
-
-- name: stateBucketName
-  env: STATE_BUCKET
-
+- name: component.network.name  
 - name: component.loadBalancer
   parameters:
   - name: name
-    value: default
-    env: TF_VAR_name
-  - name: network
-    env: TF_VAR_network
-    value: default
+    value: "${hub.componentName}"
   - name: instanceGroup
-    env: TF_VAR_instance_group
   - name: sslCertificate
-    env: TF_VAR_ssl_certificate
     empty: allow
+  - name: backendPort
+    value: 80
+  - name: backendProtocol
+    value: HTTP
+  - name: backendHealthPath
+    value: /
 
 outputs:
 - name: component.loadBalancer.externalIp
   fromTfVar: external_ip
+
+templates:
+  files: ["*.template"]
