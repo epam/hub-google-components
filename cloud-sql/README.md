@@ -9,8 +9,7 @@ The component has the following directory structure:
 ```text
 ./
 ├── hub-component.yaml               # manifest file of the component with configuration and parameters
-├── deploy.sh                        # `deploy` action implementation of the component
-├── undeploy.sh                      # `undeploy` action implementation of the component
+├── post-deploy                      # to exports generated password
 └── gcloud-...-create.yaml.template  # template of GKE cluster `create` command argument file                       
 ```
 
