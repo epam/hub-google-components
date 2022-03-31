@@ -3,8 +3,10 @@ import random
 
 from locust import HttpUser, between, task
 
+
 def rand_str(str_length):
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k = str_length))
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=str_length))
+
 
 class MyUser(HttpUser):
     wait_time = between(5, 10)

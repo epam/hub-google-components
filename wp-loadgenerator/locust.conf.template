@@ -1,9 +1,9 @@
 # see: https://docs.locust.io/en/stable/configuration.html#configuration-file
 locustfile = locustfile.py
-headless = false
+headless = true
 web-port = 8080
 autostart = true
-autoquit = 300
+autoquit = 16
 host = ${component.wp-loadgenerator.targetHost}
 users = ${component.wp-loadgenerator.users}
 spawn-rate = ${component.wp-loadgenerator.spawnRate}
