@@ -22,10 +22,7 @@ variable "delete_contents_on_destroy" {
   default     = false
 }
 
-variable "composer_env_name" {
+variable "compute_service_account" {
   type = string
-}
-
-variable "composer_bucket" {
-  type = string
+  description = "Default service account role of compute engine where dataflow job will be run"
 }

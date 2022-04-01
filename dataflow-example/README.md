@@ -18,6 +18,8 @@ The component has the following directory structure:
 ├── main.tf                              # terraform configuration
 ├── outputs.tf                           # terraform outputs
 ├── pre-deploy                           # enables big query and dataflow api
+├── post-deploy                          # upload dataflow files to GCS bucket, set DAG variables and DAG file
+├── post-undeploy                        # remove dataflow files from GCS bucket, delete DAG variables and DAG file
 └── variables.tf                         # terraform variable definitions
 ```
 

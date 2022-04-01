@@ -1,0 +1,42 @@
+#!/bin/bash -ex
+
+BUCKET=$(echo "$COMPOSER_BUCKET" | cut -d / -f 1 -f 2 -f 3)
+DATASET_NAME="$TF_VAR_dataset_name"
+TABLE_NAME="$TF_VAR_table_name"
+
+# Uplaod dataflow files
+gsutil cp dataflow_files/inputFile.txt "$BUCKET"
+gsutil cp dataflow_files/transformCSVtoJSON.js "$BUCKET"
+gsutil cp dataflow_files/jsonSchema.json "$BUCKET"
+
+# Set variables for DAG
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --set "project_id" "$PROJECT_ID"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --set "gce_region" "$REGION"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --set "gce_zone" "$ZONE"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --set "bucket_path" "$BUCKET"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --set "output_table" "$PROJECT_ID:$DATASET_NAME.$TABLE_NAME"
+
+# Import DAG to Composer environment
+gcloud composer environments storage dags import \
+    --environment "$COMPOSER_ENV_NAME" \
+    --location "$REGION" \
+    --source "dag/composer-dataflow-dag.py"

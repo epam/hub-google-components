@@ -1,0 +1,39 @@
+#!/bin/bash -ex
+
+BUCKET="$(echo "$COMPOSER_BUCKET" | cut -d / -f 1 -f 2 -f 3)"
+
+# Delete DAG from Composer environment
+gcloud composer environments storage dags delete composer-dataflow-dag.py \
+    --environment "$COMPOSER_ENV_NAME" \
+    --location "$REGION"
+
+# Delete variables for DAG
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --delete "project_id"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --delete "gce_region"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --delete "gce_zone"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --delete "bucket_path"
+
+gcloud composer environments run "$COMPOSER_ENV_NAME" \
+        --location "$REGION" \
+        variables -- \
+        --delete "output_table"
+
+# Remove dataflow files
+gsutil rm "$BUCKET/inputFile.txt"
+gsutil rm "$BUCKET/transformCSVtoJSON.js"
+gsutil rm "$BUCKET/jsonSchema.json"

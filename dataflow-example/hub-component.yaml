@@ -7,7 +7,13 @@ requires:
   - terraform
 
 parameters:
-  - name: dataflow-example
+  - name: projectId
+    env: PROJECT_ID
+  - name: cloud.region
+    env: REGION
+  - name: cloud.zone
+    env: ZONE
+  - name: dataflow
     parameters:
       - name: bigquery
         parameters:
@@ -29,6 +35,6 @@ parameters:
             value: false
             env: TF_VAR_delete_contents_on_destroy
       - name: composer.envName
-        env: TF_VAR_composer_env_name
+        env: COMPOSER_ENV_NAME
       - name: composer.bucket
-        env: TF_VAR_composer_bucket
+        env: COMPOSER_BUCKET

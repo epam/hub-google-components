@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Obrain default service account to assing BigQuery owner role to it
+DEFAULT_SERCICE_ACCOUNT=$(gcloud iam service-accounts list --filter="displayName:'Compute Engine default service account'" --format='value(email)')
+
+echo "export TF_VAR_compute_service_account=$DEFAULT_SERCICE_ACCOUNT"
