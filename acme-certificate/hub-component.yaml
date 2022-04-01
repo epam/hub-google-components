@@ -17,7 +17,11 @@ parameters:
     empty: allow
   - name: certificate.acme.endpoint
     env: TF_VAR_endpoint
-    value: https://acme-staging-v02.api.letsencrypt.org/directory
+    value: https://acme-v02.api.letsencrypt.org/directory
+    brief: >
+      Let's Encrypt has two endpoints
+        1. production: https://acme-v02.api.letsencrypt.org/directory
+        2. staging:    https://acme-staging-v02.api.letsencrypt.org/directory
 outputs:
   - name: certificate.cert
     fromTfVar: cert_file

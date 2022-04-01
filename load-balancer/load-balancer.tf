@@ -5,7 +5,7 @@ module "load_balancer" {
   project           = data.google_client_config.current.project
   name              = var.name
   target_tags       = [var.name]
-  firewall_networks = [var.network]
+  firewall_networks = [data.google_compute_network.current.name]
 
   ssl                             = true
   use_ssl_certificates            = var.ssl_certificate != ""
