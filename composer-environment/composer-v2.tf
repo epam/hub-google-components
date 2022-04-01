@@ -4,23 +4,6 @@ module "composer_v2" {
   composer_env_name = var.composer_env_name
   project_id        = data.google_client_config.current.project
   region            = data.google_client_config.current.region
-  #   zone              = data.google_client_config.current.zone
-  network    = local.network_name
-  subnetwork = data.google_compute_subnetwork.this.name
-  #   node_count        = var.node_count
-  #   machine_type      = var.node_machine_type
-  #   disk_size  = 100
+  network           = local.network_name
+  subnetwork        = data.google_compute_subnetwork.this.name
 }
-
-# module "composer" {
-#   source            = "terraform-google-modules/composer/google//modules/create_environment"
-#   version           = ">= 2.4.0"
-#   composer_env_name = var.composer_env_name
-#   project_id        = data.google_client_config.current.project
-#   region            = data.google_client_config.current.region
-#   zone              = data.google_client_config.current.zone
-#   node_count        = var.node_count
-#   machine_type      = var.node_machine_type
-#   network           = local.network_name
-#   subnetwork        = data.google_compute_subnetwork.this.name
-# }
