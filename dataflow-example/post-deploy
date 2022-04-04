@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-BUCKET=$(echo "$COMPOSER_BUCKET" | cut -d / -f 1 -f 2 -f 3)
+BUCKET=$(echo "$COMPOSER_BUCKET" | cut -d / -f 1,2,3)
 DATASET_NAME="$TF_VAR_dataset_name"
 TABLE_NAME="$TF_VAR_table_name"
 
