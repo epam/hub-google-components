@@ -1,7 +1,3 @@
-variable "project" {
-  type = string
-}
-
 variable "domain_name" {
   type = string
 }
@@ -23,10 +19,6 @@ variable "disk_type" {
 }
 
 variable "machine_type" {
-  type = string
-}
-
-variable "region" {
   type = string
 }
 
@@ -67,9 +59,5 @@ variable "db_password" {
 }
 
 variable "db_host" {
-  type = string
-}
-
-variable "wp_salt" {
   type = string
 }

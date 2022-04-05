@@ -1,26 +1,14 @@
----
 version: 1
 kind: component
 meta:
   name: managed-instance-group
-  brief: GCP Managed instance group
-  version: 1
-  source:
-      dir: ../managed-instance-group/
 
 requires:
 - terraform
 
 parameters:
-- name: projectId
-  env: TF_VAR_project
 - name: dns.domain
-  env: DOMAIN_NAME
-- name: cloud.region
-  env: TF_VAR_region
-
-- name: stateBucketName
-  env: STATE_BUCKET
+  env: TF_VAR_domain_name
 
 - name: component.managedInstanceGroup
   parameters:

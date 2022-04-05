@@ -9,7 +9,6 @@ data "template_file" "startup_script" {
     DB_USER     = var.db_user
     DB_PASSWORD = var.db_password
     DB_HOST     = var.db_host
-    WP_SAlT     = var.wp_salt
   }
 }
 
@@ -22,14 +21,14 @@ module "instance_template" {
   version = "~> 7.4.0"
 
   name_prefix = var.hostname_prefix
-  subnetwork  = var.subnetwork
+  subnetwork  = data.google_compute_subnetwork.this.name
   service_account = {
     email  = data.google_service_account.vm.email
     scopes = ["cloud-platform"]
   }
   disk_type            = var.disk_type
   machine_type         = var.machine_type
-  region               = var.region
+  region               = data.google_client_config.current.region
   startup_script       = data.template_file.startup_script.rendered
   source_image         = var.image
   source_image_project = var.image_project
@@ -43,12 +42,12 @@ module "mig" {
   source  = "terraform-google-modules/vm/google//modules/mig"
   version = "~> 7.4.0"
 
-  project_id        = var.project
-  region            = var.region
+  project_id        = data.google_client_config.current.project
+  region            = data.google_client_config.current.region
   target_size       = var.target_size
   hostname          = var.hostname_prefix
   instance_template = module.instance_template.self_link
-  subnetwork        = var.subnetwork
+  subnetwork        = data.google_compute_subnetwork.this.name
   named_ports = [{
     name = "http",
     port = var.port
