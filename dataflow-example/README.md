@@ -1,7 +1,7 @@
 # Dataflow Example
 
 Deploys a new BigQuery in cloud accout and run Dataflow Job from Composer.
-This component is based on [`GCP tutorial`](https://cloud.google.com/composer/docs/how-to/using/using-dataflow-template-operato#task-status)
+This component is based on [`Composer with Dataflow Pipelines Tutorial`](https://cloud.google.com/composer/docs/how-to/using/using-dataflow-template-operator)
 
 ## Implementation details & Parameters
 
@@ -39,8 +39,8 @@ Pre deployent script will enable: `bigquery.googleapis.com`, `bigquerymigration.
 
 ## Dependencies
 
-* Requires enable api: `bigquery.googleapis.com`, `bigquerymigration.googleapis.com`, `bigquerystorage.googleapis.com`, `dataflow.googleapis.com`
-* This component largely relies on terraform module: [terraform-google-modules/bigquery/google](https://registry.terraform.io/modules/terraform-google-modules/bigquery/google/latest)
+* Requires Google Cloud APIs enabled: `bigquery.googleapis.com`, `bigquerymigration.googleapis.com`, `bigquerystorage.googleapis.com`, `dataflow.googleapis.com`
+* This component depends on Terraform module for BigQuery: [terraform-google-modules/bigquery/google](https://registry.terraform.io/modules/terraform-google-modules/bigquery/google/latest)
 
 ## References
 
