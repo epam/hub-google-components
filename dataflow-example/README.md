@@ -1,7 +1,7 @@
 # Dataflow Example
 
-Deploys a new BigQuery in cloud accout and run Dataflow Job from Composer.
-This component is based on [`Composer with Dataflow Pipelines Tutorial`](https://cloud.google.com/composer/docs/how-to/using/using-dataflow-template-operator)
+Create a new BigQuery table and run a Dataflow Job from Cloud Composer to get data from Cloud Storage and output the results to BigQuery.
+This component is based on [`Cloud Composer Tutorial`](https://cloud.google.com/composer/docs/how-to/using/using-dataflow-template-operator)
 
 ## Implementation details & Parameters
 
