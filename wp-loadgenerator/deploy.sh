@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+export PYTHONWARNINGS="ignore:Unverified HTTPS request"
+
 if test ! -d .venv; then
     python3 -m venv .venv
     # shellcheck disable=SC1091

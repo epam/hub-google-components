@@ -11,6 +11,9 @@ def rand_str(str_length):
 class MyUser(HttpUser):
     wait_time = between(5, 10)
 
+    def on_start(self):
+        self.client.verify = False
+
     @task
     def index(self):
         self.client.get("/")
