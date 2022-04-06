@@ -1,7 +1,7 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 BUCKET=$(echo "$COMPOSER_BUCKET" | cut -d / -f 1,2,3)
-DATASET_NAME="$TF_VAR_dataset_name"
+DATASET_NAME=${TF_VAR_dataset_name//[[:punct:]]/_}
 TABLE_NAME="$TF_VAR_table_name"
 
 # Uplaod dataflow files

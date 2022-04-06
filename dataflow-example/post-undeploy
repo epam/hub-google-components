@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 BUCKET="$(echo "$COMPOSER_BUCKET" | cut -d / -f 1,2,3)"
 
@@ -34,6 +34,6 @@ gcloud composer environments run "$COMPOSER_ENV_NAME" \
         --delete "output_table"
 
 # Remove dataflow files
-gsutil rm "$BUCKET/inputFile.txt"
-gsutil rm "$BUCKET/transformCSVtoJSON.js"
-gsutil rm "$BUCKET/jsonSchema.json"
+gsutil rm "$BUCKET/inputFile.txt" | cat
+gsutil rm "$BUCKET/transformCSVtoJSON.js" | cat
+gsutil rm "$BUCKET/jsonSchema.json" | cat

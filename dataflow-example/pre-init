@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Obrain default service account to assing BigQuery owner role to it
 DEFAULT_SERCICE_ACCOUNT=$(gcloud iam service-accounts list --filter="displayName:'Compute Engine default service account'" --format='value(email)')
