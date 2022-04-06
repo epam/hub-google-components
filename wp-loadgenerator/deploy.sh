@@ -28,7 +28,7 @@ EOF
 # 120 * 5 = 600sec
 for _ in $(seq 120); do
     # shellcheck disable=SC1083
-    code="$(curl -kLs --write-out %{http_code} --output /dev/null "$HOST")"
+    code="$(curl -kLs --write-out %{http_code} --output /dev/null "$HOST" | cat)"
     if test "$code" = "$expected"; then
         success="1"
         echo " done!"
@@ -48,7 +48,7 @@ cat << EOF
 
 Outputs:
 
-test_report = "$(pwd)/test_result.html"
+test_report = "file://$(pwd)/test-result.html"
 
 EOF
 
