@@ -20,6 +20,10 @@ parameters:
   - name: composer.version
     value: v1
     env: TF_VAR_composer_version
+  - name: cloud.region
+    env: REGION
+  - name: cloud.zone
+    env: ZONE
 
 outputs:
   - name: composer.airflow.url
