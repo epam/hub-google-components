@@ -3,37 +3,33 @@
 BUCKET="$(echo "$COMPOSER_BUCKET" | cut -d / -f 1,2,3)"
 
 # Delete DAG from Composer environment
+color h "Delete DAG"
+
 gcloud composer environments storage dags delete composer-dataflow-dag.py \
     --environment "$COMPOSER_ENV_NAME" \
     --location "$REGION"
 
+echo
+
 # Delete variables for DAG
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --delete "project_id"
+color h "Delete Airflow variables"
 
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --delete "gce_region"
+composer="gcloud composer environments run $COMPOSER_ENV_NAME --location $REGION variables"
+var_keys=("project_id" "gce_region" "gce_zone" "bucket_path" "output_table")
 
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --delete "gce_zone"
+for key in "${var_keys[@]}"; do
+    if test "$COMPOSER_VERSION" = "v1"; then
+        $composer -- --delete "$key"
+    else
+        $composer delete -- "$key"
+    fi
+done
 
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --delete "bucket_path"
-
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --delete "output_table"
+echo
 
 # Remove dataflow files
+color h "Remove DAG required files from $BUCKET"
+
 gsutil rm "$BUCKET/inputFile.txt" | cat
 gsutil rm "$BUCKET/transformCSVtoJSON.js" | cat
 gsutil rm "$BUCKET/jsonSchema.json" | cat

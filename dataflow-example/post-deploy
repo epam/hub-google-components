@@ -5,38 +5,35 @@ DATASET_NAME=${TF_VAR_dataset_name//[[:punct:]]/_}
 TABLE_NAME="$TF_VAR_table_name"
 
 # Uplaod dataflow files
+color h "Upload DAG required files to $BUCKET"
+
 gsutil cp dataflow_files/inputFile.txt "$BUCKET"
 gsutil cp dataflow_files/transformCSVtoJSON.js "$BUCKET"
 gsutil cp dataflow_files/jsonSchema.json "$BUCKET"
 
+echo
+
 # Set variables for DAG
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --set "project_id" "$PROJECT_ID"
+color h "Setup Airflow variables"
 
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --set "gce_region" "$REGION"
+composer="gcloud composer environments run $COMPOSER_ENV_NAME --location $REGION variables"
+var_keys=("project_id" "gce_region" "gce_zone" "bucket_path" "output_table")
+var_values=("$PROJECT_ID" "$REGION" "$ZONE" "$BUCKET" "$PROJECT_ID:$DATASET_NAME.$TABLE_NAME")
 
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --set "gce_zone" "$ZONE"
+for i in "${!var_keys[@]}"; do
+    if test "$COMPOSER_VERSION" = "v1"; then
+        $composer -- --set "${var_keys[$i]}" "${var_values[$i]}"
+    else
+        $composer set -- "${var_keys[$i]}" "${var_values[$i]}"
+    fi
+done
 
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --set "bucket_path" "$BUCKET"
-
-gcloud composer environments run "$COMPOSER_ENV_NAME" \
-        --location "$REGION" \
-        variables -- \
-        --set "output_table" "$PROJECT_ID:$DATASET_NAME.$TABLE_NAME"
+echo
 
 # Import DAG to Composer environment
+color h "Import DAG to Airflow"
+
 gcloud composer environments storage dags import \
     --environment "$COMPOSER_ENV_NAME" \
     --location "$REGION" \
-    --source "dag/composer-dataflow-dag.py"
+    --source "dag/composer-dataflow-dag-$COMPOSER_VERSION.py"

@@ -34,7 +34,11 @@ parameters:
           - name: deleteContentsOnDestroy
             value: false
             env: TF_VAR_delete_contents_on_destroy
-      - name: composer.envName
-        env: COMPOSER_ENV_NAME
-      - name: composer.bucket
-        env: COMPOSER_BUCKET
+      - name: composer
+        parameters:
+        - name: envName
+          env: COMPOSER_ENV_NAME
+        - name: bucket
+          env: COMPOSER_BUCKET
+        - name: version
+          env: COMPOSER_VERSION

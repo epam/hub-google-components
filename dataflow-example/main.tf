@@ -1,7 +1,11 @@
 data "google_client_config" "current" {}
 
 locals {
+  # https://cloud.google.com/bigquery/docs/locations#regions
+  us_locations = ["us-central1", "us-west4", "us-west2", "northamerica-northeast1", "us-east4", "us-west1", "us-west3", "southamerica-east1", "southamerica-west1", "us-east1", "northamerica-northeast2"]
+
   dataset_name = replace(var.dataset_name, "/[[:punct:]]/", "_")
+  location     = contains(local.us_locations, var.location) ? "US" : "EU"
 }
 
 module "bigquery" {
@@ -12,7 +16,7 @@ module "bigquery" {
   dataset_name               = local.dataset_name
   description                = var.description
   project_id                 = data.google_client_config.current.project
-  location                   = var.location
+  location                   = local.location
   delete_contents_on_destroy = var.delete_contents_on_destroy
   tables = [
     {
