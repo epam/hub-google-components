@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo "db_password = $(terraform output --json | jq -crM '.db_password_raw.value')"

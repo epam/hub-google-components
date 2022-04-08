@@ -1,6 +1,8 @@
-# Virtual Network Component
+# Cloud SQL
 
 ## Description
+
+This component can create GCP Cloud SQL instance. It's based on official [Google terraform modules](https://github.com/terraform-google-modules/terraform-google-sql-db/tree/master/modules)
 
 ## Implementation details & Parameters
 
@@ -8,15 +10,38 @@ The component has the following directory structure:
 
 ```text
 ./
-├── hub-component.yaml               # manifest file of the component with configuration and parameters
-├── post-deploy                      # to exports generated password
-└── gcloud-...-create.yaml.template  # template of GKE cluster `create` command argument file                       
+├── hub-component.yaml # manifest file of the component with configuration and parameters
+├── main.tf            # terraform configuration
+├── mssql.tf           # terraform configuration of Cloud SQL module for MSSQL database
+├── mysql.tf           # terraform configuration of Cloud SQL module for MySQL database
+├── postgresql.tf      # terraform configuration of Cloud SQL module for Postgresql database
+├── ouputs.tf          # terraform outputs
+└── variables.tf       # terraform variables
 ```
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | :-------:
-| `component.cloudSql.version` |  The MySQL, PostgreSQL or SQL Server version to use: List of supported values can be found [here](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version) | `MYSQL_5_7` | x |
+## Parameters
 
-> TODO: complete input and out put parameter references
+| Name      | Description | Default Value | Mandatory?
+| --------- | ---------   | ---------     | :-------:
+| `component.cloudSql.name` | Name of Cloud SQl instance | | x |
+| `component.cloudSql.version` | The MySQL, PostgreSQL or MSSQL Server version to use: List of supported values can be found [here](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version) | `MYSQL_5_7` | x |
+| `component.cloudSql.network` | VPC network name in case if Cloud SQL instance need to have private ip | default | |
+| `component.cloudSql.dbName` | Database name | default | |
+| `component.cloudSql.dbUser` | Database username | default | |
+| `component.cloudSql.password` | User password. If empty will autogenerate | | |
+| `component.cloudSql.publicIP` | Whether this Cloud SQL instance should be assigned a public IPV4 address | true | |
+| `component.cloudSql.availabilityType` | The availability type for the master instance.This is only used to set up high availability for the instance. Can be either ZONAL or REGIONAL | ZONAL | |
+| `component.cloudSql.allocatedIpRangeName` | The name of the allocated ip range for the private ip CloudSQL instance. | | |
+
+## Outputs
+
+| Name      | Description |
+| --------- | ---------   |
+| `component.cloudSql.dbName` | Database name |
+| `component.cloudSql.dbUser` | Database username |
+| `component.cloudSql.password` | User password |
+| `component.cloudSql.privateIp` | Instance private IP |
+| `component.cloudSql.publicIp` | Instance public IP |
+
 
 ## Dependencies

@@ -1,11 +1,10 @@
-
 variable "name" {
   type = string
 }
 
-
 variable "network" {
   type = string
+  default = "default"
 }
 
 variable "db_name" {
@@ -22,6 +21,7 @@ variable "db_password" {
 
 variable "public_ip" {
   type = bool
+  default = false
 }
 
 variable "authorized_networks" {
@@ -34,5 +34,16 @@ variable "authorized_networks" {
 }
 
 variable "database_version" {
+  type    = string
   default = "MYSQL_5_7"
+}
+
+variable "availability_type" {
+  type    = string
+  default = "ZONAL"
+}
+
+variable "allocated_ip_range_name" {
+  type    = string
+  default = null
 }
