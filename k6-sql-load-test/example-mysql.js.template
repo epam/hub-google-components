@@ -1,7 +1,7 @@
 import sql from 'k6/x/sql';
 import { check } from 'k6';
 
-const db = sql.open('mysql', '${component.k6SQLloadTest.dbUser}:${component.k6SQLloadTest.dbPassword}@tcp(${component.k6SQLloadTest.dbHost}:3306)/${component.k6SQLloadTest.dbName}');
+const db = sql.open('${component.k6SQLloadTest.dbKind}', '${component.k6SQLloadTest.dbUser}:${component.k6SQLloadTest.password}@tcp(${component.k6SQLloadTest.dbHost}:3306)/${component.k6SQLloadTest.dbName}');
 
 export function setup() {
   db.exec(`CREATE TABLE IF NOT EXISTS person (

@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo "Nothing to do here"
+echo "Skipped"
+exit 0
