@@ -1,4 +1,3 @@
-
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 5.0.0"
@@ -32,4 +31,15 @@ module "vpc" {
       }
     }
   ]
+}
+
+module "private_service_access" {
+  source  = "GoogleCloudPlatform/sql-db/google//modules/private_service_access"
+  version = "~> 10.0"
+
+  ip_version  = "IPV4"
+  project_id  = data.google_client_config.current.project
+  vpc_network = var.name
+
+  depends_on = [module.vpc.network_id]
 }

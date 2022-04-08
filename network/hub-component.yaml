@@ -22,3 +22,5 @@ parameters:
 outputs:
   - name: component.network.subnetwork
     fromTfVar: subnetwork
+  - name: component.network.cloudSql.allocatedIpRangeName
+    fromTfVar: cloud_sql_allocated_ip_range_name

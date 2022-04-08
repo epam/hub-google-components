@@ -30,5 +30,6 @@ The component has the following directory structure:
 | Name      | Description
 | --------- | ---------
 | component.network.subnetwork | Self link to created subnetwork
+| component.network.allocatedPrivateIpRangeName | The name of the allocated ip range for the private ip CloudSQL instance
 
 ## Dependencies
