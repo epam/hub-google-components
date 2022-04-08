@@ -39,10 +39,11 @@ for _ in $(seq 120); do
 done
 if test -z "$success"; then
     color w " Timed out!"
+    exit 1
 fi
 
 echo
-locust --config locust.conf
+locust --config "locust.conf"
 
 cat << EOF
 
