@@ -1,3 +1,13 @@
-#!/bin/bash -ex
+#!/bin/bash -e
+
+if test "$TF_VAR_composer_version" = "v2"; then
+    cat << EOF | color w
+    Terraform module for Composer Environment V2 is not yet stabilized and could has potential bugs and problems.
+    Usage of Composer Environment V2 on your own risk.
+    GitHub PR for release: https://github.com/terraform-google-modules/terraform-google-composer/pull/40
+EOF
+fi
+
+set -x
 
 gcloud services enable composer.googleapis.com
