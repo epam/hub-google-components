@@ -1,33 +1,16 @@
----
 version: 1
 kind: component
-meta:
-  name: gcp-managed-ssl-certificate
-  brief: GCP managed SSL certificate
-  version: 1
-  source:
-      dir: ./
 
 requires:
-- terraform
+  - terraform
 
 parameters:
-- name: projectId
-  env: TF_VAR_project
-- name: dns.domain
-  env: DOMAIN_NAME
-
-- name: stateBucketName
-  env: STATE_BUCKET
-
-- name: component.certificate
-  parameters:
-  - name: name
-    env: TF_VAR_name
-  - name: description
-    value: GCP managed SSL certificate
-    env: TF_VAR_description
+  - name: certificate.commonName
+    env: TF_VAR_common_name
+  - name: certificate.alternativeNames
+    empty: allow
+    env: TF_VAR_alternative_names
 
 outputs:
-- name: component.certificate.sslCertificate
-  fromTfVar: ssl_certificate
+  - name: certificate.google.selfLink
+    fromTfVar: google_cert_selflink
