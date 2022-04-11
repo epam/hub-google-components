@@ -8,43 +8,44 @@ The component has the following directory structure:
 
 ```text
 ./
-├── hub-component.yaml              # hubfile 
-├── main.tf                         # 
-├── providers.tf                    #     
-├── variables.tf                    #
-└── outputs                         # directory for outputs with generated certificates
-    └── <domain-name>               
-        ├── certificate.pem         # certificate body
-        ├── certificate-key.pem     # certificate private key
-        └── certificate-chain.pem   # certificate chain (includes intermediate cert)
+├── hub-component.yaml            # hubfile
+├── main.tf                       # terraform configuration
+├── google.tf                     # terraform configuration
+├── variables.tf                  # terraform variables
+└── outputs                       # directory for outputs with generated certificates
+    └── <domain-name>
+        ├── certificate.pem       # certificate body
+        ├── certificate-key.pem   # certificate private key
+        └── certificate-chain.pem # certificate chain (includes intermediate cert)
 ```
 
-### Parameters
+## Parameters
 
-| Name      | Description | Default Value | Required    
+| Name      | Description | Default Value | Required
 | :-------- | :--------   | :-------- | :--:
-| `certificate.commonName` | Common name for certificate. This will be used as cert primary name | | x
-| `certificate.alternativeNames` | Whitespace or comma  | `n1-standard-1` | x
-| `composer.version` | Version of composer (`v1` or `v2`) when `v2` it will set environment images to `composer-2.0.0-preview.3-airflow-2.1.2` | `v1` | x
-| `component.network.subnetwork` | Selfink to the subnetwork for compose environment | | x |
-| `component.acme.endpoint` | Selfink to the subnetwork for compose environment | `https://acme-v02.api.letsencrypt.org/directory` | x |
+| `certificate.commonName` | The certificate's common name, the primary domain that the certificate will be recognized for | | x |
+| `certificate.alternativeNames` | The alternative domain names that the certificate will be recognized for | | |
+| `certificate.acme.email` | Contact email | | |
+| `certificate.acme.endpoint` | Let's Encrypt endpoint | `https://acme-v02.api.letsencrypt.org/directory` | x |
 
-__LetsEncrypt endpoints__
+### LetsEncrypt endpoints
 
 Let's Encrypt has [two endpoints](https://letsencrypt.org/docs/acme-protocol-updates/#acme-v2-rfc-8555)
 
-1. production: https://acme-v02.api.letsencrypt.org/directory
-2. staging:    https://acme-staging-v02.api.letsencrypt.org/directory
+1. production: <https://acme-v02.api.letsencrypt.org/directory>
+2. staging:    <https://acme-staging-v02.api.letsencrypt.org/directory>
 
-## Dependencies
+## Outputs
 
-* Requires enable api: `composer.googleapis.com`
-* This component largely relies on terraform module: [terraform-google-modules/composer/google](https://registry.terraform.io/modules/terraform-google-modules/composer/google/latest)
+| Name      | Description |
+| :-------- | :--------   |
+| `certificate.cert` | Certificate file |
+| `certificate.key` | Private key file |
+| `certificate.chain.cert` | Certificate chain file |
+| `certificate.google.selfLink` | GCP ssl sertificate self link |
 
 ## References
 
 * [hub cli](https://github.com/agilestacks/hub/wiki)
 * [hub deployment for Terraform](https://github.com/agilestacks/hub-extensions/blob/gcp-extensions/documentation/hub-component-terraform.md)
-* [composer terraform module](https://registry.terraform.io/modules/terraform-google-modules/composer/google/latest)
 * [Lets Encrypts endpoints](https://letsencrypt.org/docs/acme-protocol-updates/#acme-v2-rfc-8555)
-
