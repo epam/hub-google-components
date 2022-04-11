@@ -1,25 +1,10 @@
----
 version: 1
 kind: component
-meta:
-  name: dns-zone-record-set
-  brief: GCP DNS Zone Record Set
-  version: 1
-  source:
-      dir: ../dns-zone-record-set/
 
 requires:
 - terraform
 
 parameters:
-- name: projectId
-  env: TF_VAR_project
-- name: dns.domain
-  env: DOMAIN_NAME
-
-- name: stateBucketName
-  env: STATE_BUCKET
-
 - name: component.dnsZoneRecordSet
   parameters:
   - name: name
@@ -32,3 +17,5 @@ parameters:
     env: TF_VAR_record_ttl
   - name: value
     env: TF_VAR_record_value
+  - name: zoneName
+    env: TF_VAR_zone_name
