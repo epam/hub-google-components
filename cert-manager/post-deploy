@@ -8,13 +8,13 @@ gcloud iam service-accounts create "$SA_NAME" \
 
 gcloud projects add-iam-policy-binding "$PROJECT" \
     --member "serviceAccount:$SA_NAME@$PROJECT.iam.gserviceaccount.com" \
-    --role roles/dns.admin  
+    --role roles/dns.admin
 
 gcloud iam service-accounts add-iam-policy-binding \
   --role roles/iam.workloadIdentityUser \
   --member "serviceAccount:$PROJECT.svc.id.goog[$NAMESPACE/cert-manager]" \
   "$SA_NAME"@"$PROJECT".iam.gserviceaccount.com
-  
+
 kubectl="kubectl --context=$DOMAIN_NAME"
 
 $kubectl annotate serviceaccount --namespace="$NAMESPACE" --overwrite cert-manager \
