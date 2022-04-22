@@ -5,6 +5,8 @@ locals {
   gcs_bucket_composer_v2  = length(module.composer_v2) > 0 ? module.composer_v2[0].gcs_bucket : ""
   gke_cluster_composer_v1 = length(module.composer_v1) > 0 ? module.composer_v1[0].gke_cluster : ""
   gke_cluster_composer_v2 = length(module.composer_v2) > 0 ? module.composer_v2[0].gke_cluster : ""
+  env_id_composer_v1      = length(module.composer_v1) > 0 ? module.composer_v1[0].composer_env_id : ""
+  env_id_composer_v2      = length(module.composer_v2) > 0 ? module.composer_v2[0].composer_env_id : ""
 }
 
 output "airflow_uri" {
@@ -17,4 +19,8 @@ output "gcs_bucket" {
 
 output "gke_cluster" {
   value = coalesce(local.gke_cluster_composer_v1, local.gke_cluster_composer_v2)
+}
+
+output "env_id" {
+  value = coalesce(local.env_id_composer_v1, local.env_id_composer_v2)
 }

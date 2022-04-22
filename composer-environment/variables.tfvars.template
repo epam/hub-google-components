@@ -1,0 +1,9 @@
+composer_env_name  = "${composer.envName}"
+node_count         = ${gke.node.count}
+node_disk_size     = ${gke.node.diskSize}
+node_machine_type  = "${gke.node.machineType}"
+python_version     = "${composer.python.version}"
+requirements_txt   = "${composer.pyton.requirementsFile}"
+image_version      = "${composer.airflow.imageVersion}"
+composer_endpoint  = "${composer.endpoint}"
+subnetwork         = "${component.network.subnetwork}"

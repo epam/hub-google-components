@@ -4,6 +4,6 @@ module "composer_v2" {
   composer_env_name = var.composer_env_name
   project_id        = data.google_client_config.current.project
   region            = data.google_client_config.current.region
-  network           = local.network_name
+  network           = basename(data.google_compute_subnetwork.this.network)
   subnetwork        = data.google_compute_subnetwork.this.name
 }

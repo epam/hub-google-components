@@ -1,17 +1,12 @@
 #!/bin/bash -e
 
-KUBECONFIG="$(dotenv get "HUB_KUBECONFIG" --default "$(pwd)/.kubeconfig")"
-export KUBECONFIG
-
-cluster_name="$(terraform output -json | jq -r '.gke_cluster.value')"
-gcloud container clusters get-credentials "$cluster_name" --region "$REGION"
-
-if test -f "$KUBECONFIG"; then
-    dotenv set "HUB_KUBECONFIG=\"$KUBECONFIG\""
-    cat <<EOF
-
-Outputs:
-
-kubeconfig = "file://$KUBECONFIG"
-EOF
+if test -z "$HUB_KUBECONFIG"; then
+  HUB_KUBECONFIG="$(dotenv get "HUB_KUBECONFIG" --default "$KUBECONFIG")"
 fi
+export KUBECONFIG="$HUB_KUBECONFIG"
+CLUSTER="$(terraform output -json | jq -r '.gke_cluster.value')"
+
+set -x
+kubectl config delete-context "$HUB_DOMAIN_NAME"
+gcloud container clusters get-credentials "$CLUSTER" --region "$GOOGLE_REGION"
+kubectl config rename-context "$(kubectl config current-context)" "$HUB_DOMAIN_NAME"

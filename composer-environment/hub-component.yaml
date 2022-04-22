@@ -2,38 +2,63 @@ version: 1
 kind: component
 
 requires:
+  - gcp
   - terraform
 
+provides:
+  - kubernetes
+
 parameters:
-  - name: dns.name
+  - name: dns.domain
   - name: hub.componentName
-  - name: gke.nodeCount
+  - name: composer
+    parameters:
+      - name: envName
+        value: ${dns.name}-${hub.componentName}
+      - name: version
+        value: v1
+        env: TF_VAR_
+      - name: python.version
+        value: 3
+      - name: pyton.requirementsFile
+        value: requirements.txt
+        env: TF_VAR_requirements_txt
+      - name: airflow.imageVersion
+        empty: allow
+      - name: endpoint
+        value: public
+        brief: can be public or private
+  - name: gke.node.count
+    brief: Should be at least 3 nodes
     value: 3
-    env: TF_VAR_node_count
-  - name: gke.machineType
+  - name: gke.node.machineType
     value: "n1-standard-1"
-    env: TF_VAR_node_machine_type
+  - name: gke.node.diskSize
+    value: 100
   - name: component.network.subnetwork
-    env: TF_VAR_subnetwork
   - name: composer.envName
     value: ${dns.name}-${hub.componentName}
   - name: composer.version
     value: v1
-    env: TF_VAR_composer_version
   - name: cloud.region
-    env: REGION
+    env: GOOGLE_REGION
   - name: cloud.zone
-    env: ZONE
+    empty: allow
 
 outputs:
   - name: composer.airflow.url
     fromTfVar: airflow_uri
   - name: composer.gcs.bucket
     fromTfVar: gcs_bucket
-  - name: composer.gke.cluster
+  # - name: kubernetes.config
+  #   fromTfVar: kubeconfig
+  - name: composer.id
+    fromTfVar: env_id
+  - name: dns.domain
+  - name: kubernetes.gke.cluster
     fromTfVar: gke_cluster
-  - name: composer.gke.kubeconfig
-    fromTfVar: kubeconfig
+  - name: kubernetes.api.endpoint
+    fromTfVar: hub_kubernetes_api_endpoint
 
 templates:
   files: ["*.template"]
