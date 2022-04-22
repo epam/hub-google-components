@@ -2,7 +2,7 @@
 
 Creates a new TLS certificate. Tested with LetsEncrypt provider
 
-## Implementation details & Parameters
+## Structure
 
 The component has the following directory structure:
 
@@ -22,7 +22,7 @@ The component has the following directory structure:
 ## Parameters
 
 | Name      | Description | Default Value | Required
-| :-------- | :--------   | :-------- | :--:
+| :-------- | :--------   | :--------     | :--:
 | `certificate.commonName` | The certificate's common name, the primary domain that the certificate will be recognized for | | x |
 | `certificate.alternativeNames` | The alternative domain names that the certificate will be recognized for | | |
 | `certificate.acme.email` | Contact email | | |
