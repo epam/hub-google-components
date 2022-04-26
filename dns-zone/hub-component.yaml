@@ -1,25 +1,13 @@
 ---
 version: 1
 kind: component
-meta:
-  name: dns-zone
-  brief: GCP DNS Zone
-  version: 1
-  source:
-      dir: ../dns-zone/
 
 requires:
 - terraform
 
 parameters:
-- name: projectId
-  env: TF_VAR_project
-- name: dns.domain
-  env: DOMAIN_NAME
-
-- name: stateBucketName
-  env: STATE_BUCKET
-
+- name: component.dnsZone.name
+  env: TF_VAR_name
 - name: component.dnsZone.baseZoneName
   value: epam
   env: TF_VAR_base_name

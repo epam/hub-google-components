@@ -3,7 +3,5 @@ terraform {
   backend "gcs" {}
 }
 
-provider "google" {
-  project = var.project
-}
+provider "google" {}
 

@@ -1,6 +1,5 @@
 data "google_dns_managed_zone" "base" {
   name    = var.base_name
-  project = var.project
 }
 
 resource "google_dns_managed_zone" "stack" {
@@ -14,7 +13,6 @@ resource "google_dns_record_set" "base_zone" {
   type         = "NS"
   ttl          = 300
   managed_zone = data.google_dns_managed_zone.base.name
-  project      = var.project
 
   rrdatas = google_dns_managed_zone.stack.name_servers
 }
