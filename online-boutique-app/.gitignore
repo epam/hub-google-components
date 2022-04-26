@@ -1,0 +1,2 @@
+resources/frontend-ingress.yaml
+resources/istio-manifests/frontend-gateway.yaml
