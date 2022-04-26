@@ -1,0 +1,17 @@
+version: 1
+kind: component
+
+requires:
+  - terraform
+
+parameters:
+  - name: dns.domain
+  - name: hub.componentName
+  - name: component.network.subnetwork
+
+# outputs:
+#   - name: composer.airflow.url
+#     fromTfVar: airflow_uri
+
+templates:
+  files: ["*.template"]
