@@ -18,10 +18,10 @@ parameters:
 - name: projectId
   env: PROJECT
 - name: component.gke.name
-  env: NAME  
+  env: NAME
 - name: component.gke.zone
   empty: allow
-  env: ZONE     
+  env: ZONE
 - name: dns.domain
   env: DOMAIN_NAME
 

@@ -3,7 +3,7 @@
 Create a new BigQuery table and run a Dataflow Job from Cloud Composer to get data from Cloud Storage and output the results to BigQuery.
 This component is based on [`Cloud Composer Tutorial`](https://cloud.google.com/composer/docs/how-to/using/using-dataflow-template-operator)
 
-## Implementation details & Parameters
+## Structure
 
 The component has the following directory structure:
 
@@ -25,7 +25,7 @@ The component has the following directory structure:
 
 Pre deployent script will enable: `bigquery.googleapis.com`, `bigquerymigration.googleapis.com`, `bigquerystorage.googleapis.com`, `dataflow.googleapis.com`
 
-### Parameters
+## Parameters
 
 | Name      | Description | Default Value | Required
 | :-------- | :--------   | :-------- | :--:
@@ -39,11 +39,12 @@ Pre deployent script will enable: `bigquery.googleapis.com`, `bigquerymigration.
 
 ## Dependencies
 
-* Requires Google Cloud APIs enabled: `bigquery.googleapis.com`, `bigquerymigration.googleapis.com`, `bigquerystorage.googleapis.com`, `dataflow.googleapis.com`
-* This component depends on Terraform module for BigQuery: [terraform-google-modules/bigquery/google](https://registry.terraform.io/modules/terraform-google-modules/bigquery/google/latest)
+* This component depends on Terraform module for BigQuery: [bigquery terraform module]
 
 ## References
 
 * [hub cli](https://github.com/agilestacks/hub/wiki)
 * [hub deployment for Terraform](https://github.com/agilestacks/hub-extensions/blob/gcp-extensions/documentation/hub-component-terraform.md)
-* [bigquery terraform module](https://registry.terraform.io/modules/terraform-google-modules/bigquery/google/latest)
+* [bigquery terraform module]
+
+[bigquery terraform module]: https://registry.terraform.io/modules/terraform-google-modules/bigquery/google/latest

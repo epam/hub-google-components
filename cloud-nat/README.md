@@ -2,7 +2,9 @@
 
 ## Description
 
-## Implementation details & Parameters
+Terraform based component to create GCP Clout NAT. It's based on official [Google terraform modules](https://github.com/terraform-google-modules/terraform-google-sql-db/tree/master/modules)
+
+## Structure
 
 The component has the following directory structure:
 
@@ -19,19 +21,22 @@ The component has the following directory structure:
 
 ### Parameters
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | ---------
-| component.cloudNat.name | Name of Cloud NAT resource | default | True
-| component.cloudNat.network | Name or self link of GCP network | default | True
+| Name      | Description | Default Value | Required
+| :-------- | :--------   | :--------     | :--:
+| `component.cloudNat.name` | Name of Cloud NAT resource | default | x |
+| `component.cloudNat.network` | Name or self link of GCP network | default | x |
 
 ### Outputs
 
-| Name      | Description
-| --------- | ---------
-| component.cloudNat.routerName | Name of NAT router
+| Name      | Description |
+| :-------- | :--------   |
+| `component.cloudNat.routerName` | Name of NAT router
 
 ## Dependencies
+
+* [Network](https://github.com/agilestacks/google-components/tree/main/network)
 
 ## References
 
 * [hub cli](https://github.com/agilestacks/hub/wiki)
+* [Cloud NAT](https://cloud.google.com/nat/docs/overview)

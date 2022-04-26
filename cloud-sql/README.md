@@ -4,7 +4,7 @@
 
 This component can create GCP Cloud SQL instance. It's based on official [Google terraform modules](https://github.com/terraform-google-modules/terraform-google-sql-db/tree/master/modules)
 
-## Implementation details & Parameters
+## Structure
 
 The component has the following directory structure:
 
@@ -21,8 +21,8 @@ The component has the following directory structure:
 
 ## Parameters
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | ---------     | :-------:
+| Name      | Description | Default Value | Required
+| :-------- | :--------   | :--------     | :--:
 | `component.cloudSql.name` | Name of Cloud SQl instance | | x |
 | `component.cloudSql.version` | The MySQL, PostgreSQL or MSSQL Server version to use: List of supported values can be found [here](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version) | `MYSQL_5_7` | x |
 | `component.cloudSql.network` | VPC network name in case if Cloud SQL instance need to have private ip | default | |
@@ -36,12 +36,19 @@ The component has the following directory structure:
 ## Outputs
 
 | Name      | Description |
-| --------- | ---------   |
+| :-------- | :--------   |
 | `component.cloudSql.dbName` | Database name |
 | `component.cloudSql.dbUser` | Database username |
 | `component.cloudSql.password` | User password |
 | `component.cloudSql.privateIp` | Instance private IP |
 | `component.cloudSql.publicIp` | Instance public IP |
 
-
 ## Dependencies
+
+* [Network](https://github.com/agilestacks/google-components/tree/main/network)
+* This component depends on Terraform module for CloudSQL: [GoogleCloudPlatform/sql-db/google](https://registry.terraform.io/modules/GoogleCloudPlatform/sql-db/google/latest)
+
+## References
+
+* [hub cli](https://github.com/agilestacks/hub/wiki)
+* [Cloud SQL](https://cloud.google.com/sql/docs/introduction)

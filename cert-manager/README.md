@@ -34,13 +34,13 @@ The component has the following directory structure:
 
 | Name      | Description |
 | :-------- | :--------   |
-| `component.certmanager.clusterIssuer` |  |
+| `component.certmanager.clusterIssuer` | Cert-manager issuer |
 
 ## Dependencies
 
 The component requires:
 
-* GKE cluster
+* [GKE cluster](https://github.com/agilestacks/google-components/tree/main/gke-gcloud)
 
 ## References
 

@@ -4,32 +4,42 @@
 
 The component deploys Anthos Service mesh to the given GKE cluster
 
-## Implementation details & Parameters
+## Structure
 
 The component has the following directory structure:
 
 ```text
 ./
 ├── hub-component.yaml               # manifest file of the component with configuration and parameters
-├── deploy.sh                        # `deploy` action implementation of the component                 
-└── undeploy.sh                      # `undeploy` action implementation of the component                       
+├── deploy.sh                        # `deploy` action implementation of the component
+└── undeploy.sh                      # `undeploy` action implementation of the component
 ```
 
 On `deploy` the component downloads Anthos Service Mesh installation script from well known Google location and calls `install` command
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | ---------
-| projectId | GCP project ID | (set on stack level)  | Yes
-| dns.domain | Domain name of the stack | (set on stack level) | Yes
-| component.anthosServiceMesh.clusterName | GKE cluster name | superhub | Yes
-| component.anthosServiceMesh.zone | GKE cluster zone | us-central1-a | No
-| component.anthosServiceMesh.region | GKE cluster region | us-central1 | No
-| component.anthosServiceMesh.version | Anthos Service Mesh version | 1.11 | No
+## Parameters
+
+| Name      | Description | Default Value | Required
+| :-------- | :--------   | :--------     | :--:
+| `projectId` | GCP project ID | | x
+| `dns.domain` | Domain name of the stack | | x |
+| `component.anthosServiceMesh.clusterName` | GKE cluster name | superhub | x |
+| `component.anthosServiceMesh.zone` | GKE cluster zone | us-central1-a | |
+| `component.anthosServiceMesh.region` | GKE cluster region | us-central1 | |
+| `component.anthosServiceMesh.version` | Anthos Service Mesh version | 1.11 | |
+
+## Outputs
+
+| Name      | Description |
+| :-------- | :--------   |
+| `component.anthosServiceMesh.revision` | Istio revision |
+| `component.anthosServiceMesh.url` | Anthos service URL |
 
 ## Dependencies
+
 The component requires:
 
-* GKE cluster
+* [GKE cluster](https://github.com/agilestacks/google-components/tree/main/gke-gcloud)
 
 ## References
 

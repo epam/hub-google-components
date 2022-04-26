@@ -23,12 +23,12 @@ The component has the following directory structure:
 | Name      | Description | Default Value | Required
 | :-------- | :--------   | :--------     | :--:
 | `projectId` | GCP project ID | | x
-| `dns.domain` | Domain name of the stack | | x
-| `component.gke.name` | GKE cluster name | | x
-| `component.gke.zone` | GKE cluster location zone | |
-| `component.anthosServiceMesh.revision` | | | x
-| `component.anthosIngressGateway.name` | Kubernetes resource name | default-gateway |
-| `component.anthosIngressGateway.namespace` | Kubernetes namespace | istio-ingress |
+| `dns.domain` | Domain name of the stack | | x |
+| `component.gke.name` | GKE cluster name | | x |
+| `component.gke.zone` | GKE cluster location zone | | |
+| `component.anthosServiceMesh.revision` | | | x |
+| `component.anthosIngressGateway.name` | Kubernetes resource name | default-gateway | |
+| `component.anthosIngressGateway.namespace` | Kubernetes namespace | istio-ingress | |
 
 ## Outputs
 
@@ -40,7 +40,7 @@ The component has the following directory structure:
 
 The component requires:
 
-* GKE cluster
+* [GKE cluster](https://github.com/agilestacks/google-components/tree/main/gke-gcloud)
 
 ## References
 

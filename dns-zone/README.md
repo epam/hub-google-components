@@ -2,28 +2,28 @@
 
 ## Description
 
-## Implementation details & Parameters
+Terraform based component. This component creates Google Cloud DNS zone and add NS record to base Cloud DNS zone.
+
+## Structure
 
 The component has the following directory structure:
 
 ```text
 ./
 ├── hub-component.yaml  # manifest file of the component with configuration and parameters
-├── deploy.sh           # `deploy` action implementation of the component
-├── undeploy.sh         # `undeploy` action implementation of the component
 ├── dns.tf              # terraform implementation of component
 ├── main.tf             # terraform configuration
 └── variables.tf        # terraform variable
 ```
 
-### Parameters
+## Parameters
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | ---------
-| component.dnsZone.baseZoneName | Name of base zone | epam | True
-
-## Dependencies
+| Name      | Description | Default Value | Required
+| :-------- | :--------   | :--------     | :--:
+| `component.dnsZone.name` | Name of zone | | x |
+| `component.dnsZone.baseZoneName` | Name of base zone | epam | x |
 
 ## References
 
 * [hub cli](https://github.com/agilestacks/hub/wiki)
+* [Cloud DNS Zones](https://cloud.google.com/dns/docs/zones/zones-overview)

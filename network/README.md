@@ -2,7 +2,9 @@
 
 ## Description
 
-## Implementation details & Parameters
+This component creates GCP network. Based of official [Google terraform module for Network]
+
+## Structure
 
 The component has the following directory structure:
 
@@ -17,19 +19,24 @@ The component has the following directory structure:
 └── variables.tf        # terraform variable
 ```
 
-### Parameters
+## Parameters
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | ---------
-| component.network.name | Name of VPC | default | True
-| component.network.autocreateSubnets | Flag to auto create subnetworks | true | False
-| component.network.subnetwork.cidr | Subnetwork CIDR in case if `autocreateSubnets` is False | - | False
+| Name      | Description | Default Value | Required
+| :-------- | :--------   | :--------     | :--:
+| `component.network.name` | Name of VPC | default | x
+| `component.network.autocreateSubnets` | Flag to auto create subnetworks | true | |
+| `component.network.subnetwork.cidr` | Subnetwork CIDR in case if `autocreateSubnets` is False | | |
 
-### Outputs
+## Outputs
 
-| Name      | Description
-| --------- | ---------
-| component.network.subnetwork | Self link to created subnetwork
-| component.network.allocatedPrivateIpRangeName | The name of the allocated ip range for the private ip CloudSQL instance
+| Name      | Description |
+| :-------- | :--------   |
+| `component.network.subnetwork` | Self link to created subnetwork |
+| `component.network.allocatedPrivateIpRangeName` | The name of the allocated ip range for the private ip CloudSQL instance |
 
-## Dependencies
+## References
+
+* [hub cli](https://github.com/agilestacks/hub/wiki)
+* [Google terraform module for Network]
+
+[Google terraform module for Network]: https://github.com/terraform-google-modules/terraform-google-network

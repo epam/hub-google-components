@@ -4,7 +4,7 @@ This component is not deploying anything. Instead it will generate a load test. 
 
 So, instead you can access test report: in the `test-results.html` generated in this directory
 
-## Implementation details & Parameters
+## Structure
 
 The component has the following directory structure:
 
@@ -18,30 +18,30 @@ The component has the following directory structure:
 └── undeploy.sh             # at present does nothing
 ```
 
-### Parameters
+## Parameters
 
-| Name      | Description | Default Value | Mandatory?
-| --------- | ---------   | --------- | :--:
-| `component.wp-loadgenerator.targetHost` | FQDN of http endpoint where to send some loads | `https://<stack domain name>` | x
-| `component.wp-loadgenerator.users` | number of users to simulate load | `50` | x
-| `component.wp-loadgenerator.spawnRate` | Rate to spawn users at (users per second) | `10` | x
-| `component.wp-loadgenerator.runTime` | Stop after the specified amount of time | `5m` | x
+| Name      | Description | Default Value | Required
+| :-------- | :--------   | :--------     | :--:
+| `component.wp-loadgenerator.targetHost` | FQDN of http endpoint where to send some loads | `https://<stack domain name>` | x |
+| `component.wp-loadgenerator.users` | number of users to simulate load | `50` | x |
+| `component.wp-loadgenerator.spawnRate` | Rate to spawn users at (users per second) | `10` | x |
+| `component.wp-loadgenerator.runTime` | Stop after the specified amount of time | `5m` | x |
 
 Additional configuration parameters can added. Please see [locust reference guide](https://docs.locust.io/en/stable/configuration.html)
 
-### Ouptusts
+## Ouptusts
 
-| Name      | Description
-| --------- | --------- 
+| Name      | Description |
+| :-------- | :--------   |
 | `component.wp-loadgenerator.testReport` | Absolute path to the test reportfile |
 
 ## Dependencies
 
-Requires: 
+Requires:
 
-* python v3 
-* venv 
-* locust 
+* python v3
+* venv
+* locust
 
 ## References
 

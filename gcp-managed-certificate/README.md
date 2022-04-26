@@ -4,7 +4,7 @@
 
 Current implementation create GCP managed certificate
 
-## Implementation details & Parameters & Outputs
+## Structure
 
 The component has the following directory structure:
 
