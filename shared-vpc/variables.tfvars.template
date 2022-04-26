@@ -1,0 +1,4 @@
+folder_display_name = "${dns.domain}-${hub.componentName} (managed by superhub)"
+name                = "${hub.componentName}"
+org_domain          = "agilestacks.com"
+shared_subnetwork   = "${component.network.subnetwork}"
