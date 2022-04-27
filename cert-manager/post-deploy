@@ -1,13 +1,18 @@
 #!/bin/sh -xe
 
 SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
-SA_NAME="$HUB_COMPONENT"-"$SA_SUFFIX"
+# Service account name must be between 6 and 30 characters (inclusive), 
+# must begin with a lowercase letter, and consist of 
+# lowercase alphanumeric characters that can be separated by hyphens
+SA_NAME="$(echo "$HUB_COMPONENT"-"$SA_SUFFIX" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-30)"
+SA_EMAIL="$SA_NAME@$PROJECT.iam.gserviceaccount.com"
 
-gcloud iam service-accounts create "$SA_NAME" \
-    --project="$PROJECT"
+if ! gcloud iam service-accounts describe "$SA_EMAIL" > /dev/null; then
+  gcloud iam service-accounts create "$SA_NAME" --project="$PROJECT"
+fi
 
 gcloud projects add-iam-policy-binding "$PROJECT" \
-    --member "serviceAccount:$SA_NAME@$PROJECT.iam.gserviceaccount.com" \
+    --member "serviceAccount:$SA_EMAIL" \
     --role roles/dns.admin
 
 gcloud iam service-accounts add-iam-policy-binding \
@@ -19,4 +24,6 @@ kubectl="kubectl --context=$DOMAIN_NAME"
 
 $kubectl annotate serviceaccount --namespace="$NAMESPACE" --overwrite cert-manager \
   "iam.gke.io/gcp-service-account=$SA_NAME@$PROJECT.iam.gserviceaccount.com"
+
+$kubectl apply -f "issuer-le-gcp.yaml"
 

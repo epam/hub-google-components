@@ -1,8 +1,0 @@
-#!/bin/sh -xe
-kubectl="kubectl --context=$DOMAIN_NAME"
-
-$kubectl apply \
-  -n "$NAMESPACE" \
-  -f "https://github.com/jetstack/cert-manager/releases/download/$CHART_VERSION/cert-manager.crds.yaml"
-
-$kubectl apply -f "issuer-le-gcp.yaml"

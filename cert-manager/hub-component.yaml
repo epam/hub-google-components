@@ -29,6 +29,9 @@ parameters:
           - name: chart
             env: HELM_CHART
             value: "cert-manager"
+          - name: crd
+            env: CRD
+            value: https://github.com/jetstack/cert-manager/releases/download/${component.certmanager.version}/cert-manager.crds.yaml
         # - name: version
         #   value: v1.3.1
         #   env: CHART_VERSION
