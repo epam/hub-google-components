@@ -7,7 +7,7 @@ SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
 SA_NAME="$(echo "$HUB_COMPONENT"-"$SA_SUFFIX" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-30)"
 SA_EMAIL="$SA_NAME@$PROJECT.iam.gserviceaccount.com"
 
-if ! gcloud iam service-accounts describe "$SA_EMAIL" > /dev/null; then
+if ! gcloud iam service-accounts describe "$SA_EMAIL" --project="$PROJECT" > /dev/null; then
   gcloud iam service-accounts create "$SA_NAME" --project="$PROJECT"
 fi
 
