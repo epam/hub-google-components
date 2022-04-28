@@ -10,7 +10,6 @@ meta:
 
 requires:
 - gcp
-- kubernetes
 
 parameters:
 - name: projectId
@@ -34,9 +33,5 @@ parameters:
 
 outputs:
 - name: dns.domain
-- name: kubernetes.gke.cluster
-  value: ${component.gke.name}
-- name: kubernetes.api.endpoint
-  value: hub_kubernetes_api_server
 
 

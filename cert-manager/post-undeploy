@@ -1,17 +1,13 @@
 #!/bin/sh -xe
 
 SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
-# Service account name must be between 6 and 30 characters (inclusive), 
-# must begin with a lowercase letter, and consist of 
-# lowercase alphanumeric characters that can be separated by hyphens
-SA_NAME="$(echo "$HUB_COMPONENT"-"$SA_SUFFIX" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-30)"
-SA_EMAIL="$SA_NAME@$PROJECT.iam.gserviceaccount.com"
-
-if ! gcloud iam service-accounts describe "$SA_EMAIL" --project="$PROJECT" > /dev/null; then
-  gcloud iam service-accounts delete "$SA_EMAIL" --project="$PROJECT" --quiet
-fi
+SA_NAME="$HUB_COMPONENT"-"$SA_SUFFIX"
 
 kubectl="kubectl --context=$DOMAIN_NAME"
+
+gcloud iam service-accounts delete "$SA_NAME"@"$PROJECT".iam.gserviceaccount.com \
+    --project="$PROJECT" --quiet
+
 if $kubectl get -f "issuer-le-gcp.yaml" -o "name" 2>/dev/null; then
-  $kubectl delete -f "issuer-le-gcp.yaml"
+    $kubectl delete -f "issuer-le-gcp.yaml"
 fi

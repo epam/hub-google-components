@@ -10,8 +10,6 @@ meta:
 
 requires:
 - gcp
-provides:
-- kubernetes
 
 parameters:
 - name: projectId
@@ -40,7 +38,7 @@ parameters:
 outputs:
 - name: dns.domain
 - name: component.gke.url
-  fromTfVar: gcp_url
+  fromTfVar: gcp_url 
 
 templates:
   files:
