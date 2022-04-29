@@ -3,12 +3,16 @@ terraform {
   required_version = ">= 0.12"
 }
 
-provider "google" {}
+# In case of deploying into Shared VPC you need to specify service project
+provider "google" {
+  project = var.project_id
+}
 
 data "google_client_config" "current" {}
 
 data "google_compute_subnetwork" "this" {
   self_link = var.subnetwork
+  project = var.network_project_id
 }
 
 data "local_file" "requirements_txt" {

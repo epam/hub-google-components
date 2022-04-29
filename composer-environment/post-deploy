@@ -7,6 +7,7 @@ export KUBECONFIG="$HUB_KUBECONFIG"
 CLUSTER="$(terraform output -json | jq -r '.gke_cluster.value')"
 
 set -x
-kubectl config delete-context "$HUB_DOMAIN_NAME"
+kubectl config delete-context "$HUB_DOMAIN_NAME" > /dev/null 2>&1 || true
 gcloud container clusters get-credentials "$CLUSTER" --region "$GOOGLE_REGION"
 kubectl config rename-context "$(kubectl config current-context)" "$HUB_DOMAIN_NAME"
+kubeconfig output -p

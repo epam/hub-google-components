@@ -1,19 +1,11 @@
 #!/bin/bash -e
 
-# shellcheck disable=SC2154
-if test "$TF_VAR_composer_version" = "v2"; then
-    cat << EOF | color w
-Terraform module for Composer Environment V2 is not yet stable and could has potential bugs and problems.
-Use of Composer Environment V2 on your own risk!
-GitHub PR for release: https://github.com/terraform-google-modules/terraform-google-composer/pull/40
-EOF
-fi
-
 gcloud services enable "composer.googleapis.com"
 
-if test ! -f "$TF_VAR_requirements_txt"; then
+# shellcheck disable=SC2154
+if test ! -f "$REQUIREMENTS_TXT"; then
     color w "Creating empty pypi packages file: $(files abspath "$REQUIREMENTS_TXT")"
-    cat << EOF > "$TF_VAR_requirements_txt"
+    cat << EOF > "$REQUIREMENTS_TXT"
 # put your packages here
 # More info here: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 
