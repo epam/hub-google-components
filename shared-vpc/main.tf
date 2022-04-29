@@ -1,56 +1,66 @@
 provider "google" {}
 
-data "google_organization" "this" {
-  domain = "agilestacks.com"
+provider "google-beta" {}
+
+data "google_project" "host_project" {
+  project_id = var.host_project_id
 }
 
-# data "google_billing_account" "this" {
-#   open = true
-# }
-
-data "google_client_config" "this" {}
-
-data "google_compute_subnetwork" "default" {
-  self_link = var.shared_subnetwork
+data "google_project" "service_project" {
+  project_id = data.google_project.service_project.number
 }
 
-resource "google_folder" "this" {
-  display_name = var.folder_display_name
-  parent       = data.google_organization.this.org_id
+locals {
+  activate_apis = [
+    "container.googleapis.com",
+    "dataproc.googleapis.com",
+    "dataflow.googleapis.com",
+    "composer.googleapis.com",
+    "vpcaccess.googleapis.com",
+  ]
 }
 
-# module "service_project" {
-#   # "terraform-google-modules/project-factory/google"
-#   source             = "terraform-google-modules/project-factory/google//modules/svpc_service_project"
-#   version            = "12.0.0"
-#   name               = var.name
-#   random_project_id  = false
-#   org_id             = data.google_organization.this.org_id
-#   billing_account    = data.google_billing_account.this.id
-#   shared_vpc         = data.google_client_config.this.project
-#   shared_vpc_subnets = [data.google_compute_subnetwork.default.self_link]
-
-#   activate_apis = [
-#     "compute.googleapis.com",
-#     "container.googleapis.com",
-#     "dataproc.googleapis.com",
-#     "dataflow.googleapis.com",
-#   ]
-# }
-
-resource "google_compute_shared_vpc_service_project" "service1" {
-  host_project    = data.google_client_config.this.project
-  service_project = data.google_client_config.this.project
+resource "google_resource_manager_lien" "lien" {
+  parent       = "projects/${data.google_project.host_project.number}"
+  restrictions = ["resourcemanager.projects.delete"]
+  origin       = "shared-vpc"
+  reason       = "Shared VPC host project lien"
 }
 
+module "project_services" {
+  source  = "terraform-google-modules/project-factory/google//modules/project_services"
+  version = "~> 13.0"
 
-# module "shared_vpc" {
-#   source  = "terraform-google-modules/project-factory/google"
-#   version = "12.0.0"
+  project_id    = data.google_project.service_project.number
+  activate_apis = local.activate_apis
+}
 
-#   organization_id   = data.google_organization.this.org_id
-#   billing_account   = data.google_billing_account.this.id
-#   host_project_name = data.google_client_config.this.project
-#   network_name      = "superhub-shared"
-#   folder_id         = google_folder.department1.name
-# }
+# If Shared VPC Admin role is set at the folder level, use the google-beta provider.
+# The google provider only supports this permission at project or organizational level currently.
+resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
+  provider = google-beta
+
+  host_project    = data.google_project.host_project.number
+  service_project = data.google_project.service_project.number
+  depends_on      = [module.project_services]
+}
+
+resource "google_compute_shared_vpc_host_project" "shared_vpc_host" {
+  provider = google-beta
+
+  project    = data.google_project.host_project.number
+  depends_on = [module.project_services]
+}
+
+module "shared_vpc_access" {
+  source  = "terraform-google-modules/project-factory/google//modules/shared_vpc_access"
+  version = "~> 13.0"
+
+  host_project_id                   = data.google_project.host_project.number
+  service_project_id                = data.google_project.service_project.number
+  enable_shared_vpc_service_project = true
+  active_apis                       = local.activate_apis
+  shared_vpc_subnets = [
+    var.shared_subnetwork
+  ]
+}
