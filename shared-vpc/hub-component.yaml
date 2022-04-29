@@ -5,13 +5,12 @@ requires:
   - terraform
 
 parameters:
-  - name: dns.domain
-  - name: hub.componentName
-  - name: component.network.subnetwork
-
-# outputs:
-#   - name: composer.airflow.url
-#     fromTfVar: airflow_uri
+  - name: sharedVpc
+    parameters:
+      - name: subnetwork
+      - name: hostProjectId
+      - name: serviceProjectId
 
 templates:
-  files: ["*.template"]
+  files:
+    - "*.template"
