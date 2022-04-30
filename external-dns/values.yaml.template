@@ -4,10 +4,6 @@ sources:
 # - crd
 
 provider: google
-aws:
-  zoneType: "public"
-  # preferCNAME: "true"
-  evaluateTargetHealth: "true"
 
 domainFilters:
 - "${dns.domain}"
