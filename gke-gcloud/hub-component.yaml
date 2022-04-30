@@ -38,7 +38,7 @@ parameters:
 outputs:
 - name: dns.domain
 - name: component.gke.url
-  fromTfVar: gcp_url 
+  value: https://console.cloud.google.com/kubernetes/clusters/details/${component.gke.zone}/${component.gke.name}/details?project=${projectId}"
 
 templates:
   files:
