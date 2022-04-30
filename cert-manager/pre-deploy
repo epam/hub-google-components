@@ -1,0 +1,36 @@
+#!/bin/sh -e
+
+SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
+# Service account name must be between 6 and 30 characters (inclusive), 
+# must begin with a lowercase letter, and consist of 
+# lowercase alphanumeric characters that can be separated by hyphens
+SA_NAME="$(echo "$HUB_COMPONENT"-"$SA_SUFFIX" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-30)"
+SA_EMAIL="$SA_NAME@$PROJECT.iam.gserviceaccount.com"
+
+kubectl config delete-context "$DOMAIN_NAME" > /dev/null 2>&1 || true
+gcloud container clusters get-credentials "$NAME" --zone "$ZONE"
+kubectl config rename-context "$(kubectl config current-context)" "$DOMAIN_NAME"
+
+if gcloud iam service-accounts describe "$SA_EMAIL" > /dev/null; then
+  echo "Service account: $SA_EMAIL (already exists)"
+else
+  gcloud iam service-accounts create "$SA_NAME" --project="$PROJECT"
+fi
+
+gcloud projects add-iam-policy-binding "$PROJECT" \
+    --member "serviceAccount:$SA_EMAIL" \
+    --role "roles/dns.admin"
+
+gcloud iam service-accounts add-iam-policy-binding \
+  --role roles/iam.workloadIdentityUser \
+  --member "serviceAccount:$PROJECT.svc.id.goog[$NAMESPACE/cert-manager]" \
+  "$SA_EMAIL"
+
+cat << EOF > values-generated.yaml
+serviceAccount:
+  create: true
+  name: "$SA_NAME"
+  automountServiceAccountToken: true
+  annotations:
+    iam.gke.io/gcp-service-account: "$SA_EMAIL"
+EOF

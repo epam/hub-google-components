@@ -11,6 +11,12 @@ parameters:
     env: PROJECT
   - name: dns.domain
     env: DOMAIN_NAME
+  - name: component.gke
+    parameters:
+    - name: zone
+      env: ZONE
+    - name: name
+      env: NAME    
   - name: component.certmanager
     parameters:
       - name: version

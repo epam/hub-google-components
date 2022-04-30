@@ -1,3 +1,3 @@
-.envrc
-*.yaml
-!hub-component.yaml
+values.yaml
+values-generated.yaml
+issuer-le-gcp.yaml
