@@ -1,15 +1,11 @@
-#!/bin/bash
+#!/bin/bash -e
 
-gcloud container node-pools describe "$NAME" \
- --zone "$ZONE" \
- --cluster "$CLUSTER"
-
-retVal=$?
-if [ $retVal -eq 0 ]; then
-    echo "Node pool $NAME already exists"
-    exit 0
+echo "Checking presence of node pool $NAME for cluster $CLUSTER"
+if gcloud container node-pools describe "$NAME" --zone "$ZONE" --cluster "$CLUSTER" > /dev/null; then
+  echo "Already exists"
+else
+  echo "Creating from file: gcloud-container-node-pools-create.yaml..."
+  gcloud container node-pools create "$NAME" --flags-file=gcloud-container-node-pools-create.yaml
 fi
 
-gcloud container node-pools create "$NAME" \
- --flags-file=gcloud-container-node-pools-create.yaml
-
+echo "Done!"
