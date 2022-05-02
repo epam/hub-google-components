@@ -26,12 +26,15 @@ parameters:
     env: REGION
   - name: version
     value: 1.11
-    env: VERSION
+  - name: asmcli.url
+    value: "https://storage.googleapis.com/csm-artifacts/asm/asmcli_${component.anthosServiceMesh.version}"
+    brief: We want to syncronize Anthos version with asmcli
+    env: ASMCLI_URL
 
 outputs:
 - name: component.anthosServiceMesh.revision
   fromTfVar: asm_rev
 - name: component.anthosServiceMesh.url
-  fromTfVar: anthos_url
+  value: https://console.cloud.google.com/anthos/services?project=${projectId}"
 
 

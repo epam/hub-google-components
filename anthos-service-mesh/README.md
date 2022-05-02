@@ -2,7 +2,17 @@
 
 ## Description
 
-The component deploys Anthos Service mesh to the given GKE cluster
+The component deploys Anthos Service mesh to the given GKE cluster using `asmcli` script
+
+### Limitations
+
+`asmcli` prerequeisites: bash v4.0+ required
+
+To check your bash version run following command
+
+```bash
+echo "$BASH_VERSION"
+```
 
 ## Structure
 
@@ -44,4 +54,5 @@ The component requires:
 ## References
 
 * [Anthos Service Mesh on GKE](https://cloud.google.com/service-mesh/docs/unified-install/quickstart-asm)
+* [asm cli](https://cloud.google.com/service-mesh/docs/unified-install/asmcli-overview)
 * [hub cli](https://github.com/agilestacks/hub/wiki)
