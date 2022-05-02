@@ -23,7 +23,7 @@ gcloud projects add-iam-policy-binding "$PROJECT" \
 
 gcloud iam service-accounts add-iam-policy-binding \
   --role roles/iam.workloadIdentityUser \
-  --member "serviceAccount:$PROJECT.svc.id.goog[$NAMESPACE/external-dns]" \
+  --member "serviceAccount:$PROJECT.svc.id.goog[$NAMESPACE/$SA_NAME]" \
   "$SA_EMAIL"
 
 cat << EOF > values-generated.yaml
