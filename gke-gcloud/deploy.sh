@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 
 gcloud services enable "container.googleapis.com"
 
