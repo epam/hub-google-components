@@ -13,8 +13,7 @@ locals {
 }
 
 output "password" {
-  value     = coalesce(var.db_password, local.generated_user_password_mssql, local.generated_user_password_mysql, local.generated_user_password_postgresql)
-  sensitive = true
+  value     = nonsensitive(coalesce(var.db_password, local.generated_user_password_mssql, local.generated_user_password_mysql, local.generated_user_password_postgresql))
 }
 
 output "private_ip" {
