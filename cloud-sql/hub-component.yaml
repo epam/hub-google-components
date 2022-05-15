@@ -49,7 +49,9 @@ parameters:
         empty: allow
         env: TF_VAR_allocated_ip_range_name
         brief: The name of the allocated ip range for the private ip CloudSQL instance.
-
+      - name: randomName
+        value: true
+        env: TF_VAR_random
 outputs:
   - name: component.cloudSql.dbName
   - name: component.cloudSql.dbUser

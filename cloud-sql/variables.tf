@@ -3,7 +3,7 @@ variable "name" {
 }
 
 variable "network" {
-  type = string
+  type    = string
   default = "default"
 }
 
@@ -20,7 +20,7 @@ variable "db_password" {
 }
 
 variable "public_ip" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -46,4 +46,9 @@ variable "availability_type" {
 variable "allocated_ip_range_name" {
   type    = string
   default = null
+}
+
+variable "random" {
+  type    = bool
+  default = true
 }

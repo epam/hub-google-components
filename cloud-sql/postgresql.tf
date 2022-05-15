@@ -17,7 +17,7 @@ module "postgresql" {
   user_name            = var.db_user
   user_password        = var.db_password
   deletion_protection  = false
-  random_instance_name = true
+  random_instance_name = var.random
   availability_type    = var.availability_type
 
   ip_configuration = {
