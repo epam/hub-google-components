@@ -12,5 +12,5 @@ fi
 
 echo "Fetching kubeconfig..."
 gcloud container clusters get-credentials "$NAME" --zone "$ZONE"
-kubectl config delete-context "$DOMAIN_NAME" > /dev/null 2>&1 || true
-kubectl config rename-context "$(kubectl config current-context)" "$DOMAIN_NAME"
+kubectl config delete-context "$HUB_DOMAIN_NAME" > /dev/null 2>&1 || true
+kubectl config rename-context "$(kubectl config current-context)" "$HUB_DOMAIN_NAME"

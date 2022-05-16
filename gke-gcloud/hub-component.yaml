@@ -14,9 +14,12 @@ requires:
 parameters:
 - name: projectId
   env: PROJECT
-- name: dns.domain
-  env: DOMAIN_NAME
+# - name: dns.domain
+#   env: DOMAIN_NAME
 - name: hubStackName
+- name: hub.deployedBy
+  value: superhub
+  brief: Placeholder parameter for proper tagging of cloud resources
 
 - name: component.gke
   parameters:
@@ -37,6 +40,7 @@ parameters:
 
 outputs:
 - name: dns.domain
+  value: "${hubStackName}"
 - name: component.gke.url
   value: https://console.cloud.google.com/kubernetes/clusters/details/${component.gke.zone}/${component.gke.name}/details?project=${projectId}"
 
