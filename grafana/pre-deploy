@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/sh -e
 
 kubectl config delete-context "$HUB_DOMAIN_NAME" > /dev/null 2>&1  || echo ""
 gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$ZONE"

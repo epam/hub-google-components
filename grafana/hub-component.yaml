@@ -13,6 +13,8 @@ parameters:
   env: ZONE
 - name: component.grafana
   parameters:
+  - name: version
+    value: 8.5.2
   - name: namespace
     value: grafana
     env: NAMESPACE

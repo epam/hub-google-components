@@ -16,6 +16,8 @@ The component has the following directory structure:
 
 | Name      | Description | Default Value | Required
 | :-------- | :--------   | :--------     | :--:
+`component.grafana.version` | Grafana version | 8.5.2 | x |
+`component.grafana.namespace` | Target kubernetes namespace | `grafana` | x |
 `component.grafana.chart.repo` | Helm chart repository URL | https://grafana.github.io/helm-charts | x |
 `component.grafana.chart.name` | Helm chart name | `grafana` | x |
 `component.grafana.chart.version` | Helm chart version | 6.29.2 | x |

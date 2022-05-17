@@ -1,4 +1,7 @@
 # see more: https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+image:
+  repository: grafana/grafana
+  tag: "${component.grafana.version}"
 persistence:
   type: pvc
   enabled: true
