@@ -1,0 +1,26 @@
+#!/bin/sh -ex
+
+kubectl config delete-context "$HUB_DOMAIN_NAME" > /dev/null 2>&1  || echo ""
+gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$ZONE"
+kubectl config rename-context "$(kubectl config current-context)" "$HUB_DOMAIN_NAME"
+
+
+if test -n "$INGRESS_HOST"; then
+  cat << EOF > values-ingress.yaml
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    # kubernetes.io/ingress.class: nginx
+  path: /
+  pathType: Prefix
+  hosts:
+    - "$INGRESS_HOST"
+  tls:
+  - secretName: $COMPONENT_NAME-tls
+    hosts:
+    - "$INGRESS_HOST"
+EOF
+else 
+  rm -f "values-ingress.yaml"
+fi
