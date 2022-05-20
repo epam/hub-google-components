@@ -9,23 +9,14 @@ meta:
       dir: ../anthos-service-mesh/
 
 parameters:
-- name: projectId
-  env: PROJECT
-- name: dns.domain
-  env: DOMAIN_NAME
-
+- name: component.gke.name
+  env: CLUSTER
+- name: component.gke.zone
+  env: GOOGLE_ZONE
 - name: component.anthosServiceMesh
   parameters:
-  - name: clusterName
-    env: CLUSTER
-  - name: zone
-    empty: allow
-    env: ZONE
-  - name: region
-    empty: allow
-    env: REGION
   - name: version
-    value: 1.11
+    value: 1.13
   - name: asmcli.url
     value: "https://storage.googleapis.com/csm-artifacts/asm/asmcli_${component.anthosServiceMesh.version}"
     brief: We want to syncronize Anthos version with asmcli
