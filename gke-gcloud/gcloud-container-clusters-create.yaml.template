@@ -10,9 +10,7 @@
 --max-nodes: 3
 --min-nodes: 1 
 --preemptible:
---addons:
-  - NetworkPolicy
-  - NodeLocalDNS
 --workload-pool: ${projectId}.svc.id.goog
 --labels:
   stack: ${hubStackName}
+  deployed-by: "${hub.deployedBy}"

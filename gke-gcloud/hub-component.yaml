@@ -37,6 +37,11 @@ parameters:
     value: e2-standard-4
   - name: nodeCount
     value: 1
+  - name: addons
+    env: CLUSTER_ADDONS    
+    value: |
+      NetworkPolicy
+      NodeLocalDNS
 
 outputs:
 - name: dns.domain
