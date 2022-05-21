@@ -26,6 +26,4 @@ outputs:
 - name: component.anthosServiceMesh.revision
   fromTfVar: asm_rev
 - name: component.anthosServiceMesh.url
-  value: https://console.cloud.google.com/anthos/services?project=${projectId}"
-
-
+  fromTfVar: asm_url
