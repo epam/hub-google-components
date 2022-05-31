@@ -3,7 +3,7 @@ version: 1
 kind: component
 meta:
   name: external-dns
-  version: 6.1.2
+  version: 6.5.1
   source:
     dir: components/external-dns
 
@@ -38,11 +38,16 @@ parameters:
       env: HELM_CHART
       value: "external-dns"
     - name: version
-      value: 6.1.2
+      value: 6.5.1
       env: CHART_VERSION
     - name: valuesFile
       value: values.yaml
       env: CHART_VALUES_FILE
+    - name: syncIntervalSeconds
+      value: 30
+      env: SYNC_INTERVAL
+    - name: syncPolicy
+      value: sync
 
 templates:
   files:

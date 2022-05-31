@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+WAIT_TIME=$((SYNC_INTERVAL + 10))
+echo "Wait $WAIT_TIME seconds before undeploy to make sure dns records are in sync"
+sleep "$WAIT_TIME"
+
 SA_SUFFIX=$(echo "$DOMAIN_NAME" | cut -d "." -f1)
 # Service account name must be between 6 and 30 characters (inclusive), 
 # must begin with a lowercase letter, and consist of lowercase alphanumeric 
