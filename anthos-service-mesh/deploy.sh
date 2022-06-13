@@ -23,10 +23,6 @@ chmod +x asmcli
   --cluster_location "$ZONE" \
   --enable_all
 
-gcloud container clusters get-credentials "$CLUSTER" --zone "$ZONE"
-kubectl config delete-context "$DOMAIN_NAME" > /dev/null 2>&1 
-kubectl config rename-context gke_"$PROJECT"_"$ZONE"_"$CLUSTER" "$DOMAIN_NAME"
-
 NAMESPACE="$(kubectl get namespace -l hub.gke.io/project)"
 if test -z "$NAMESPACE"; then
   NAMESPACE="istio-system"

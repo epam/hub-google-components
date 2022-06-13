@@ -12,3 +12,6 @@ interval: "${component.externalDns.helm.syncIntervalSeconds}s"
 logLevel: debug
 policy: ${component.externalDns.helm.syncPolicy}
 
+serviceAccount:
+    name: "${hub.componentName}"
+    
