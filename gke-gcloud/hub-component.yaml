@@ -42,6 +42,8 @@ parameters:
     value: |
       NetworkPolicy
       NodeLocalDNS
+  - name: imageType
+    value: ubuntu_containerd
 
 outputs:
 - name: dns.domain

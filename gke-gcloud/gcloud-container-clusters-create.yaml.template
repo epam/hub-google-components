@@ -10,6 +10,7 @@
 --max-nodes: 3
 --min-nodes: 1 
 --preemptible:
+--image-type: "${component.gke.imageType}"
 --workload-pool: ${projectId}.svc.id.goog
 --labels:
   stack: ${hubStackName}
