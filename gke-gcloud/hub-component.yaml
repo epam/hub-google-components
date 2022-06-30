@@ -8,36 +8,45 @@ requires:
   - gcp
 
 parameters:
-  - name: projectId
-    env: PROJECT
-  - name: dns.domain
-    env: DOMAIN_NAME
-  - name: hubStackName
+- name: projectId
+  env: PROJECT
+- name: hubStackName
+- name: hub.deployedBy
+  value: superhub
+  brief: Placeholder parameter for proper tagging of cloud resources
 
-  - name: component.gke
-    parameters:
-      - name: name
-        value: superhub
-        env: NAME
-      - name: version
-        value: 1.22.8-gke.202
-      - name: releaseChannel
-        value: regular
-      - name: zone
-        empty: allow
-        env: ZONE
-      - name: region
-        empty: allow
-        env: REGION
-      - name: machineType
-        value: e2-standard-4
-      - name: nodeCount
-        value: 1
+- name: component.gke
+  parameters:
+  - name: name
+    value: superhub
+    env: NAME
+  - name: version
+    value: 1.22.8-gke.202
+  - name: releaseChannel
+    value: regular
+  - name: zone
+    empty: allow
+    env: ZONE
+  - name: region
+    empty: allow
+    env: REGION
+  - name: machineType
+    value: e2-standard-4
+  - name: nodeCount
+    value: 1
+  - name: addons
+    env: CLUSTER_ADDONS    
+    value: |
+      NetworkPolicy
+      NodeLocalDNS
+  - name: imageType
+    value: ubuntu_containerd
 
 outputs:
-  - name: dns.domain
-  - name: component.gke.url
-    value: https://console.cloud.google.com/kubernetes/clusters/details/${component.gke.zone}/${component.gke.name}/details?project=${projectId}"
+- name: dns.domain
+  value: "${hubStackName}"
+- name: component.gke.url
+  value: https://console.cloud.google.com/kubernetes/clusters/details/${component.gke.zone}/${component.gke.name}/details?project=${projectId}"
 
 templates:
   files:

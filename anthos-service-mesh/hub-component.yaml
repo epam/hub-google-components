@@ -1,32 +1,29 @@
 ---
 version: 1
 kind: component
+meta:
+  name: anthos-service-mesh
+  brief: Anthos Service Mesh
+  version: 1
+  source:
+      dir: ../anthos-service-mesh/
 
 parameters:
-  - name: projectId
-    env: PROJECT
-  - name: dns.domain
-    env: DOMAIN_NAME
-
-  - name: component.anthosServiceMesh
-    parameters:
-      - name: clusterName
-        env: CLUSTER
-      - name: zone
-        empty: allow
-        env: ZONE
-      - name: region
-        empty: allow
-        env: REGION
-      - name: version
-        value: 1.11
-      - name: asmcli.url
-        value: "https://storage.googleapis.com/csm-artifacts/asm/asmcli_${component.anthosServiceMesh.version}"
-        brief: We want to syncronize Anthos version with asmcli
-        env: ASMCLI_URL
+- name: component.gke.name
+  env: CLUSTER
+- name: component.gke.zone
+  env: GOOGLE_ZONE
+- name: component.anthosServiceMesh
+  parameters:
+  - name: version
+    value: 1.13
+  - name: asmcli.url
+    value: "https://storage.googleapis.com/csm-artifacts/asm/asmcli_${component.anthosServiceMesh.version}"
+    brief: We want to syncronize Anthos version with asmcli
+    env: ASMCLI_URL
 
 outputs:
-  - name: component.anthosServiceMesh.revision
-    fromTfVar: asm_rev
-  - name: component.anthosServiceMesh.url
-    value: https://console.cloud.google.com/anthos/services?project=${projectId}"
+- name: component.anthosServiceMesh.revision
+  fromTfVar: asm_rev
+- name: component.anthosServiceMesh.url
+  fromTfVar: asm_url

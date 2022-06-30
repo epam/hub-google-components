@@ -11,9 +11,8 @@
 --max-nodes: 3
 --min-nodes: 1
 --preemptible:
---addons:
-  - NetworkPolicy
-  - NodeLocalDNS
+--image-type: "${component.gke.imageType}"
 --workload-pool: ${projectId}.svc.id.goog
 --labels:
   stack: ${hubStackName}
+  deployed-by: "${hub.deployedBy}"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 if [[ "${BASH_VERSINFO:-0}" -lt 4 ]]; then
   cat << EOF | color warn 
@@ -14,25 +14,19 @@ EOF
 fi
 
 curl -sLo "asmcli" "$ASMCLI_URL"
-
 chmod +x asmcli
 
 ./asmcli install \
-  --project_id "$PROJECT" \
+  --output_dir .dist \
+  --project_id "$GOOGLE_PROJECT" \
   --cluster_name "$CLUSTER" \
-  --cluster_location "$ZONE" \
+  --cluster_location "$GOOGLE_ZONE" \
   --enable_all
 
-NAMESPACE="$(kubectl get namespace -l hub.gke.io/project)"
-if test -z "$NAMESPACE"; then
-  NAMESPACE="istio-system"
-fi
-
-ISTIO_REV=$(kubectl --context="$DOMAIN_NAME" get deploy -n istio-system -l app=istiod -o jsonpath=\{.items[*].metadata.labels.'istio\.io\/rev'\})
-
-cat << EOF
+cat << EOF 
 
 Outputs:
-  asm_rev = $ISTIO_REV
+  asm_rev = $(cat .dist/.asm_version)
+  asm_url = https://console.cloud.google.com/anthos/services?project=$GOOGLE_PROJECT"
 
 EOF

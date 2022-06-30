@@ -3,7 +3,7 @@
 echo "Checking presence of cluster: $NAME"
 if gcloud container clusters describe "$NAME" --zone "$ZONE" > /dev/null; then
   if gcloud container clusters delete "$NAME" --zone "$ZONE" --quiet; then
-    kubectl config delete-context "$DOMAIN_NAME" || true
+    kubectl config delete-context "$HUB_DOMAIN_NAME" || true
   else
     cat << EOF | color w
 Warning: there was an error deleteing cluster: $NAME
