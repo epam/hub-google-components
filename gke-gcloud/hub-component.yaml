@@ -43,8 +43,6 @@ parameters:
     value: ubuntu_containerd
 
 outputs:
-- name: dns.domain
-  value: "${hubStackName}"
 - name: component.gke.url
   value: https://console.cloud.google.com/kubernetes/clusters/details/${component.gke.zone}/${component.gke.name}/details?project=${projectId}"
 
