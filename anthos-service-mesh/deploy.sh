@@ -23,10 +23,11 @@ chmod +x asmcli
   --cluster_location "$GOOGLE_ZONE" \
   --enable_all
 
+ISTIO_REV=$(kubectl --context="$HUB_DOMAIN_NAME" get deploy -n istio-system -l app=istiod -o jsonpath=\{.items[*].metadata.labels.'istio\.io\/rev'\})
 cat << EOF 
 
 Outputs:
-  asm_rev = $(cat .dist/.asm_version)
+  asm_rev = $ISTIO_REV
   asm_url = https://console.cloud.google.com/anthos/services?project=$GOOGLE_PROJECT"
 
 EOF

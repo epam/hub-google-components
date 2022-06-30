@@ -9,6 +9,8 @@ meta:
       dir: ../anthos-service-mesh/
 
 parameters:
+- name: dns.domain
+  env: HUB_DOMAIN_NAME
 - name: component.gke.name
   env: CLUSTER
 - name: component.gke.zone
