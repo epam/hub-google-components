@@ -23,7 +23,7 @@ chmod +x asmcli
   --cluster_location "$GOOGLE_ZONE" \
   --enable_all
 
-cat << EOF
+cat << EOF 
 
 Outputs:
   asm_rev = $(cat .dist/.asm_version)

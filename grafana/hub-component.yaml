@@ -1,0 +1,45 @@
+---
+version: 1
+kind: component
+
+requires:
+# - kubernetes
+- helm
+
+parameters:
+- name: component.gke.name
+  env: CLUSTER_NAME
+- name: component.gke.zone
+  env: ZONE
+- name: component.grafana
+  parameters:
+  - name: version
+    value: 8.5.2
+  - name: namespace
+    value: grafana
+    env: NAMESPACE
+  - name: admin.user
+    value: admin
+  - name: admin.password
+    empty: allow
+  - name: chart.repo
+    value: https://grafana.github.io/helm-charts
+    env: HELM_REPO
+  - name: chart.name
+    value: grafana
+    env: HELM_CHART
+  - name: chart.version
+    value: 6.29.2
+    env: HELM_CHART_VERSION
+  - name: chart.valuesFile
+    value: values.yaml
+    env: CHART_VALUES_FILE    
+- name: component.storage-class.name
+  empty: allow
+- name: component.ingress.host
+  empty: allow
+  env: INGRESS_HOST
+
+templates:
+  files:
+  - "*.template"

@@ -1,14 +1,15 @@
 --zone: ${component.gke.zone}
 --cluster-version: ${component.gke.version}
+--release-channel: ${component.gke.releaseChannel}
 --num-nodes: ${component.gke.nodeCount}
 --machine-type: ${component.gke.machineType}
 
-# Additional cluster configuration, see: https://cloud.google.com/sdk/gcloud/reference/container/clusters/create 
---tags: 
+# Additional cluster configuration, see: https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
+--tags:
   - sandbox
 --enable-autoscaling:
 --max-nodes: 3
---min-nodes: 1 
+--min-nodes: 1
 --preemptible:
 --image-type: "${component.gke.imageType}"
 --workload-pool: ${projectId}.svc.id.goog

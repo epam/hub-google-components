@@ -1,21 +1,15 @@
----
 version: 1
 kind: component
 meta:
   name: gke
   brief: Google Kubernetes Engine
-  version: 1
-  source:
-      dir: ../gke-gcloud/
 
 requires:
-- gcp
+  - gcp
 
 parameters:
 - name: projectId
   env: PROJECT
-# - name: dns.domain
-#   env: DOMAIN_NAME
 - name: hubStackName
 - name: hub.deployedBy
   value: superhub
@@ -27,6 +21,9 @@ parameters:
     value: superhub
     env: NAME
   - name: version
+    value: 1.22.8-gke.202
+  - name: releaseChannel
+    value: regular
   - name: zone
     empty: allow
     env: ZONE
@@ -53,6 +50,4 @@ outputs:
 
 templates:
   files:
-  - "*.template"
-
-
+    - "*.template"

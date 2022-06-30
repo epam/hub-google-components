@@ -26,6 +26,8 @@ component.externalDns.helm.repo | Helm chart repository URL | <https://charts.bi
 component.externalDns.helm.chart | Helm chart name | external-dns | |
 component.externalDns.helm.version | Helm chart version | 6.1.2 | |
 component.externalDns.helm.valuesFile | File for helm chart values | values.yaml | |
+component.externalDns.helm.syncIntervalSeconds | How often to reconcile ingresses with DNS records in the Cloud (seconds)  | 30 | |
+component.externalDns.helm.syncPolicy | Sync policy [sync or up-sert] | sync | |
 
 ## Dependencies
 
