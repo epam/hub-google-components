@@ -35,12 +35,14 @@ parameters:
   - name: nodeCount
     value: 1
   - name: addons
-    env: CLUSTER_ADDONS    
+    env: CLUSTER_ADDONS
     value: |
       NetworkPolicy
       NodeLocalDNS
   - name: imageType
     value: ubuntu_containerd
+  - name: network
+    value: default
 
 outputs:
 - name: component.gke.url

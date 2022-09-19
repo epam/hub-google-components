@@ -3,6 +3,7 @@
 --release-channel: ${component.gke.releaseChannel}
 --num-nodes: ${component.gke.nodeCount}
 --machine-type: ${component.gke.machineType}
+--network: ${component.gke.network}
 
 # Additional cluster configuration, see: https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
 --tags:
