@@ -7,6 +7,10 @@ if test -n "$CLUSTER_ADDONS"; then
   GCLOUD_ARGS="$GCLOUD_ARGS --addons=$(echo "$CLUSTER_ADDONS"|tr ';' ' '|xargs|tr ' ' ',')"
 fi
 
+if test -n "$SUBNET"; then
+  GCLOUD_ARGS="$GCLOUD_ARGS --subnetwork=$SUBNET"
+fi
+
 echo "Checking presence of cluster: $NAME"
 if ! gcloud container clusters describe "$NAME" --zone "$ZONE" > /dev/null; then
   color b "Creating new GKE cluster using: gcloud-container-clusters-create.yaml"

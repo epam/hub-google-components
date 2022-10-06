@@ -43,6 +43,10 @@ parameters:
     value: ubuntu_containerd
   - name: network
     value: default
+  - name: subnet
+    empty: allow
+    brief: Optional subnet name
+    env: SUBNET
 
 outputs:
 - name: component.gke.url
