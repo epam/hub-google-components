@@ -1,0 +1,36 @@
+version: 1
+kind: component
+requires:
+  - terraform
+
+parameters:
+- name: hub.componentName
+- name: bucket.name
+  value: "${hub.componentName}"
+  env: TF_VAR_name
+- name: bucket.region
+  env: TF_VAR_region
+  empty: allow
+- name: gcp.serviceAccount
+  env: TF_VAR_service_account
+  empty: allow
+
+outputs:
+- name: bucket.kind
+  value: gsbucket
+- name: bucket.host
+  value: storage.googleapis.com
+- name: bucket.port
+  value: 443
+- name: bucket.secure
+  value: "true"
+- name: bucket.location
+  fromTfVar: location
+- name: bucket.region
+  fromTfVar: location
+- name: bucket.endpoint
+  value: https://storage.googleapis.com
+- name: bucket.accessKey
+  fromTfVar: sensitive_access_key_id
+- name: bucket.secretKey
+  fromTfVar: sensitive_secret_access_key

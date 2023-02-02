@@ -1,0 +1,4 @@
+#!/bin/sh
+# shellcheck disable=SC2154
+
+terraform import 'google_storage_bucket._' "$TF_VAR_name"
