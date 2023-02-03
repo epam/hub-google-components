@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/sh -e
 # shellcheck disable=SC2154
 
-terraform import 'google_storage_bucket._' "$TF_VAR_name"
+if gsutil -q ls -b "gs://$TF_VAR_name" > /dev/null 2>&1; then
+  terraform import 'google_storage_bucket._' "$TF_VAR_name" || true
+fi

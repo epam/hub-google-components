@@ -1,5 +1,7 @@
 # GS Bucket
 
+Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.
+
 This component deployms a new gsbucket using Terraform. It will return a HMAK keys for further `s3` like access.
 
 At present this is a minimum viable gsbucket, possibly component will be extended in the future
@@ -21,8 +23,8 @@ The following component level parameters has been defined `hub-component.yaml`
 | Name | Description | Default Value |
 | :--- | :---        | :---          |
 | `bucket.name` | Name of the bucket, defaults to name of the component | `${hub.componentName}` |
-| `bucket.region` | Bucket region, to be passed as location | region form gcloud config |
-| `gcp.serviceAccount` | If not empty then HMAK keys will be generated for this service account email | |
+| `bucket.region` | Bucket region, to be passed as location | location form gcloud config |
+| `gcp.serviceAccount` | Name of GCP service account (GSA) to generate HMAK keys. If not set then access and secret key won't be created | |
 
 
 > Note: bucket location has been detected from current in the gcloud client
